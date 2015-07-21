@@ -17,7 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -67,7 +66,7 @@ public class RFIDMicroscope extends Application implements Constants {
    public static FadeTransition fadeImage = new FadeTransition(Duration.millis(1000), microscopeImageView);
 
    @Override
-   public void start(Stage primaryStage) {
+   public void start(Stage primaryStage) throws InterruptedException {
       // RFID reader number circle
       Circle rfidCircle = new Circle(40, Paint.valueOf("#eea95a"));
       StackPane circlePane = new StackPane();
@@ -77,7 +76,7 @@ public class RFIDMicroscope extends Application implements Constants {
       // Container for RFID reader number and specimen name
       HBox specimenNameBox = new HBox();
       specimenNameBox.getChildren().addAll(circlePane, specimenName);
-      
+
       // Container for specimen facts, images, and video
       specimenFacts.setText("Place a specimen on 1 to begin!");
       contentPane.getChildren().add(specimenFacts);
@@ -100,7 +99,7 @@ public class RFIDMicroscope extends Application implements Constants {
       // Resize images to fit contentPane size
       microscopeImageView.fitWidthProperty().bind(contentPane.widthProperty());
       microscopeImageView.fitHeightProperty().bind(contentPane.heightProperty());
-      
+
       // Set image view properties
       microscopeImageView.setPreserveRatio(true);
       microscopeImageView.setSmooth(true); // slower, but better quality
@@ -140,16 +139,19 @@ public class RFIDMicroscope extends Application implements Constants {
    }
 
    /*
-    * Attach RFID Reader SerialEventListener. @param comPort The COM port to
-    * initialize.
+    * Attach RFID Reader SerialEventListener.
     */
-   private void attachEventListeners() {
+   private void attachEventListeners() throws InterruptedException {
       // COM_A
       serialPortA = new SerialPort(Constants.COM_A);
       try {
          serialPortA.openPort();
-         serialPortA.setParams(Constants.BAUDRATE_2400, SerialPort.DATABITS_8,
-                 SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+         serialPortA.setParams(
+                 Constants.BAUDRATE_2400,
+                 SerialPort.DATABITS_8,
+                 SerialPort.STOPBITS_1,
+                 SerialPort.PARITY_NONE
+         );
          int mask = SerialPort.MASK_RXCHAR;
          serialPortA.setEventsMask(mask);
          serialPortA.addEventListener(new COM_A_listener());
@@ -162,8 +164,11 @@ public class RFIDMicroscope extends Application implements Constants {
       serialPortB = new SerialPort(Constants.COM_B);
       try {
          serialPortB.openPort();
-         serialPortB.setParams(Constants.BAUDRATE_2400, SerialPort.DATABITS_8,
-                 SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+         serialPortB.setParams(
+                 Constants.BAUDRATE_2400,
+                 SerialPort.DATABITS_8,
+                 SerialPort.STOPBITS_1,
+                 SerialPort.PARITY_NONE);
          int mask = SerialPort.MASK_RXCHAR;
          serialPortB.setEventsMask(mask);
          serialPortB.addEventListener(new COM_B_listener());
@@ -176,28 +181,34 @@ public class RFIDMicroscope extends Application implements Constants {
       serialPortC = new SerialPort(Constants.COM_C);
       try {
          serialPortC.openPort();
-         serialPortC.setParams(Constants.BAUDRATE_2400, SerialPort.DATABITS_8,
-                 SerialPort.STOPBITS_1, SerialPort.PARITY_NONE);
+         serialPortC.setParams(
+                 Constants.BAUDRATE_2400,
+                 SerialPort.DATABITS_8,
+                 SerialPort.STOPBITS_1,
+                 SerialPort.PARITY_NONE
+         );
          int mask = SerialPort.MASK_RXCHAR;
          serialPortC.setEventsMask(mask);
          serialPortC.addEventListener(new COM_C_listener());
-
       }
       catch (SerialPortException ex) {
          System.out.println(ex);
       }
 
-      // Arduino
-//        arduinoPort = new SerialPort(Constants.ARDUINO_PORT);
-//        try
-//        {
-//            arduinoPort.openPort();//Open port
-//            arduinoPort.setParams(9600, 8, 1, 0);//Set params
-//        }
-//        catch(SerialPortException ex)
-//        {
-//            System.out.println(ex);
-//        } 
+      // Set up Arduino port
+      arduinoPort = new SerialPort(Constants.ARDUINO_PORT);
+      try {
+         arduinoPort.openPort();
+         arduinoPort.setParams(
+                 SerialPort.BAUDRATE_9600,
+                 SerialPort.DATABITS_8,
+                 SerialPort.STOPBITS_1,
+                 SerialPort.PARITY_NONE);
+         Thread.sleep(5000);  // Give Arduino time to reboot
+      }
+      catch (SerialPortException ex) {
+         System.out.println(ex);
+      }
    }
 
    private static void initData() {
@@ -253,14 +264,14 @@ public class RFIDMicroscope extends Application implements Constants {
       System.out.println("Factoids Handler...");
 
       Platform.runLater(() -> {
-         //                try {
-//                    // Turn on indicator LED
-//                    System.out.println("Write to Arduino successful: " 
-//                            + arduinoPort.writeInt(1));
-//                } 
-//                catch (SerialPortException ex) {
-//                    System.out.println(ex);
-//                }
+         // Turn on indicator LED
+         try {
+            System.out.println("Write to Arduino successful: "
+                    + arduinoPort.writeInt(1));
+         }
+         catch (SerialPortException ex) {
+            System.out.println(ex);
+         }
 
          // Remove the image if there is one
          contentPane.getChildren().clear();
@@ -281,13 +292,10 @@ public class RFIDMicroscope extends Application implements Constants {
       System.out.println("Microscope handler...");
 
       Platform.runLater(() -> {
-         // Turn on indicator LED
-         //sendToArduino(1);
-
          // Remove the video block if there is one
          contentPane.getChildren().clear();
          contentPane.getChildren().add(microscopeImageView);
-         
+
          // Display specimen info and image
          readerNumber.setText(Constants.READER_2);
          specimenName.setText(getSpecimenName(tagId));
@@ -305,7 +313,7 @@ public class RFIDMicroscope extends Application implements Constants {
       Platform.runLater(() -> {
          RFIDTimer.timer.cancel();
          System.out.println("Timer cancelled.");
-         
+
          // Clear content then add only video view
          contentPane.getChildren().clear();
          contentPane.getChildren().add(videoView);
@@ -396,9 +404,5 @@ public class RFIDMicroscope extends Application implements Constants {
 
    private static MediaPlayer getVideoMedia(String specimenId) {
       return videoData.get(specimenId);
-   }
-
-   private static void sendToArduino(int message) throws InterruptedException {
-
    }
 }

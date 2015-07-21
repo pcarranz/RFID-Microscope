@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package rfid.microscope;
 
 import javafx.scene.image.Image;
@@ -21,7 +16,7 @@ public interface Constants
     public static final String COM_A = "COM4";
     public static final String COM_B = "COM5";
     public static final String COM_C = "COM6";
-//    public static final String ARDUINO_PORT = "COM3";
+    public static final String ARDUINO_PORT = "COM3";
     
     // Current RFID Reader Numbers
     public static final String READER_1 = "1";
@@ -40,7 +35,6 @@ public interface Constants
     public static final String TOMATO_SEEDS_ID   = "\n70006D2365\r";
     public static final String MAPLE_LEAF_ID     = "\n0200802558\r";
     
-    
     // Specimen Names
     public static final String VOLCANIC_ROCK  = "Obsidian - Volcanic Rock";
     public static final String SNAKE_SKIN     = "Snake Skin";
@@ -50,15 +44,15 @@ public interface Constants
     public static final String SHARK_TOOTH    = "Bull Shark Tooth";
     public static final String CORAL          = "Coral";
     public static final String BUTTERFLY      = "Tiger Butterfly";
-    public static final String MAPLE_LEAF     = "Maple Leaf";
     public static final String TOMATO_SEEDS   = "Tomato Seeds";
+    public static final String MAPLE_LEAF     = "Maple Leaf";
     
     // Specimen Facts
     public static final String DID_YOU_KNOW = "Did you know?\n\n";
     
     public static final String VOLCANIC_ROCK_FACTS  = 
               "Classification: Intermediate Igneous rock\n\n"
-            + "Did you know?\n\n"
+            + DID_YOU_KNOW
             + "- Obsidian is an igneous rock that forms when molten rock cools "
             + "very rapidly. The result is a rock that cooled so fast, crystals "
             + "did not get a chance to form.\n"
@@ -74,7 +68,7 @@ public interface Constants
 
     
     public static final String SNAKE_SKIN_FACTS     = 
-              "Did you know?\n\n"
+              DID_YOU_KNOW
             + "- Snakes don’t have eyelids.\n"
             + "- Snakes can’t bite food so have to swallow it whole.\n"
             + "- Snakes have internal ears but not external ones.";
@@ -83,6 +77,7 @@ public interface Constants
               "Type: Bird\n"
             + "Diet: Omnivore\n"
             + "Scientific Name: Coturnix coturnix\n\n"
+            + DID_YOU_KNOW
             + "- Birds have both feathers and scales. You can find scales on the legs and feet of most birds.\n"
             + "- There are four basic wing shapes that apply to most flying birds: Elliptical, long pointed, long narrow, and broad.\n"
             + "- Feathers are incredibly strong and yet are incredibly flexible. To allow both lift and forward movement, feathers can\n"
@@ -92,6 +87,7 @@ public interface Constants
               "Type: Insect\n"
             + "Diet: Carnivore\n"
             + "Scientific Name: Coleoptera\n\n"
+            + DID_YOU_KNOW
             + "- Adult beetles have two sets of wings.\n"
             + "- Most beetles only live for a year.\n"
             + "- \"Fireflies\" and \"Lightning bugs\" are also beetles. They glow in the dark to communicate.\n"
@@ -101,6 +97,7 @@ public interface Constants
     public static final String FOSSIL_FACTS         = 
               "Type: Invertebrate\n"
             + "Scientific Name: Ammonitida\n\n"
+            + DID_YOU_KNOW
             + "- Ammonites lived in the sea 240-65 million years ago.\n"
             + "- They became extinct along with dinosaurs.";
     
@@ -111,6 +108,7 @@ public interface Constants
               "Type: Invertebrate\n"
             + "Diet: Carnivore\n"
             + "Scientific Name: Anthozoa\n\n"
+            + DID_YOU_KNOW
             + "- Coral polyps are tiny, soft-bodied organisms related to jellyfish.\n"
             + "- They have a protective limestone skeleton, which forms the structure of coral reefs.\n"
             + "- Coral reefs have been around for millions of years.\n"
@@ -120,6 +118,7 @@ public interface Constants
     public static final String MAPLE_LEAF_FACTS         = 
               "Type: Plant\n"
             + "Scientific Name: Acer (Maple Tree)\n"
+            + DID_YOU_KNOW
             + "- Leaves change color from green to different shades of yellow, orange and red during the autumn.\n"
             + "- Maple syrup is made from a Maple Trees sap.\n"
             + "- A maple leaf can be found in the center of Canada's flag.";
