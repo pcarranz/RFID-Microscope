@@ -53,8 +53,8 @@ public interface Constants
     public static final String VOLCANIC_ROCK_FACTS  = 
               "Classification: Intermediate Igneous rock\n\n"
             + DID_YOU_KNOW
-            + "- Obsidian is an igneous rock that forms when molten rock cools "
-            + "very rapidly. The result is a rock that cooled so fast, crystals "
+            + "- Obsidian is an igneous rock that forms when molten rock cools"
+            + " very rapidly. The result is a rock that cooled so fast, crystals "
             + "did not get a chance to form.\n"
             + "- Obsidian is a volcanic glass with a smooth and uniform structure.\n"
             + "- Obsidian can only form near active volcanoes.\n"
@@ -65,44 +65,70 @@ public interface Constants
             + "for a rock.\n"
             + "- A certain amount of water is always present in obsidian. It is "
             + "common to see small bubbles trapped in the glass caused by water vapor.";
-
     
     public static final String SNAKE_SKIN_FACTS     = 
-              DID_YOU_KNOW
-            + "- Snakes don’t have eyelids.\n"
-            + "- Snakes can’t bite food so have to swallow it whole.\n"
-            + "- Snakes have internal ears but not external ones.";
+            "Type: Reptile\n"
+            + "Diet: Carnivore\n"
+            + "Scientific Name: Enhydria chinesis (Chinese water snake)\n"
+            + DID_YOU_KNOW
+            + "- Snakes shed their skin nearly 3 times a year in a process that"
+            + " usually lasts a few days. The process is called molting.\n"
+            + "- There are more than 3,000 species of snakes in the world.\n"
+            + "- Snakes aren't slimy. Their scales are smooth and dry.\n"
+            + "- Antarctica is the only place in the world where snakes are not found.\n"
+            + "- Snakes don't smell with their noses like humans. They have a "
+            + "split tongue that they use to smell and taste.";
     
     public static final String BIRD_FEATHER_FACTS   = 
               "Type: Bird\n"
             + "Diet: Omnivore\n"
-            + "Scientific Name: Coturnix coturnix\n\n"
+            + "Scientific Name: Coturnix coturnix (California Quail)\n\n"
             + DID_YOU_KNOW
             + "- Birds have both feathers and scales. You can find scales on the legs and feet of most birds.\n"
             + "- There are four basic wing shapes that apply to most flying birds: Elliptical, long pointed, long narrow, and broad.\n"
-            + "- Feathers are incredibly strong and yet are incredibly flexible. To allow both lift and forward movement, feathers can\n"
-            + " bend at almost a right angles.";
+            + "- Feathers are very strong and flexible. To allow both lift and forward movement, feathers can"
+            + " bend at almost right angles.\n"
+            + "- California quail usually live in hot, dry areas without much water.\n"
+            + " They mostly gain nutrients through moist plants.\n"
+            + "- Quails can lay 10 to 20 eggs at one time.";
     
     public static final String BEETLE_FACTS         = 
               "Type: Insect\n"
             + "Diet: Carnivore\n"
-            + "Scientific Name: Coleoptera\n\n"
+            + "Scientific Name: Cetonia aurata\n\n"
             + DID_YOU_KNOW
             + "- Adult beetles have two sets of wings.\n"
             + "- Most beetles only live for a year.\n"
             + "- \"Fireflies\" and \"Lightning bugs\" are also beetles. They glow in the dark to communicate.\n"
             + "- Beetles cannot see very well, so they communicate using pheromones, sounds or vibrations.\n"
-            + "Beetles live everywhere – from hot deserts to the polar ice caps.";
+            + "- Beetles live everywhere – from hot deserts to the polar ice caps.\n"
+            + "- They feed on leaves, fruits, flowers and buds of a range of plants including roses.";
     
     public static final String FOSSIL_FACTS         = 
               "Type: Invertebrate\n"
+            + "Diet: Carnivore\n"
             + "Scientific Name: Ammonitida\n\n"
             + DID_YOU_KNOW
             + "- Ammonites lived in the sea 240-65 million years ago.\n"
-            + "- They became extinct along with dinosaurs.";
+            + "- They became extinct along with the dinosaurs.\n"
+            + "- cientists use the various shapes and sizes of ammonite "
+            + "shells that appeared and disappeared through the ages to date other fossils.\n"
+            + "- They ate small fish, crabs, lobsters, and shrimps.\n"
+            + "- Ammonites constantly built new shells as they grew, but only lived in the outer chamber.";
     
     public static final String SHARK_TOOTH_FACTS    = 
-              "- Bull shark facts";
+              "Composition: Calcium phosphate minerals\n"
+            + DID_YOU_KNOW
+            + "- Sharks have the most powerful jaws on the planet.  Unlike most "
+            + "animals' jaws, both the sharks' upper and lower jaws move.\n"
+            + " - A shark bites with it's lower jaw first and then its upper.  "
+            + "It tosses its head back and forth to tear loose a piece of meat which it swallows whole.\n"
+            + "- A shark may grow and use over 20,000 teeth in its lifetime!\n"
+            + "- Each type of shark has a different shaped tooth depending on their "
+            + "diet. For example, carnivorous sharks have much pointier teeth).\n"
+            + "- Sharks never run out of teeth.  If one is lost, another spins "
+            + "forward from the rows and rows of backup teeth.\n"
+            + "- Most sharks have about 5 rows of teeth at any time.";
     
     public static final String CORAL_FACTS       = 
               "Type: Invertebrate\n"
@@ -113,15 +139,21 @@ public interface Constants
             + "- They have a protective limestone skeleton, which forms the structure of coral reefs.\n"
             + "- Coral reefs have been around for millions of years.\n"
             + "- The reefs grow best in warm, shallow, clear, sunny and moving water.\n"
-            + "- Coral reefs contain 25% of the world's marine fish species.";
+            + "- Coral reefs contain 25% of the world's marine fish species.\n"
+            + "- Coral polyps are actually translucent animals. They get there "
+            + "many colors from the billions of colorful algae they host.\n";
     
     public static final String MAPLE_LEAF_FACTS         = 
               "Type: Plant\n"
             + "Scientific Name: Acer (Maple Tree)\n"
             + DID_YOU_KNOW
-            + "- Leaves change color from green to different shades of yellow, orange and red during the autumn.\n"
-            + "- Maple syrup is made from a Maple Trees sap.\n"
-            + "- A maple leaf can be found in the center of Canada's flag.";
+            + "- Leaves change color from green to different shades of yellow, "
+            + "orange and red during the autumn.\n"
+            + "- Maple syrup is made from a Maple Tree's sap.\n"
+            + "- A maple leaf can be found in the center of Canada's flag.\n"
+            + "- Leaves are divided in 3 to 9 lobes. They are arranged opposite "
+            + "to each other on the branches."
+            + "- Maple produces winged seed which moves like a helicopter when it falls from the trees.";
     
     // Specimen Microscopic Image File Paths
     public static final String VOLCANIC_ROCK_IMG  = "/rfid/microscope-images/volcanic-rock.jpg";
