@@ -148,7 +148,7 @@ public interface Constants
     
     
     // Specimen Video Objects
-    public static final String VOLCANIC_ROCK_VID  = "file:///C:/Users/slocm-microscope/Documents/NetbeansProjects/RFID-Microscope/src/rfid/video-files/coral-HD.mp4";
+    public static final String VOLCANIC_ROCK_VID  = "file:///C:/Users/slocm-microscope/Documents/GitHub/RFID-Microscope/src/rfid/video-files/coral-HD.mp4";
 //    public static final String SNAKE_SKIN_VID     = "file:///C:/Users/Patty/Documents/CPE461/RFID-Microscope/src/rfid/video-files/coral-HD.mp4";
 //    public static final String BIRD_FEATHER_VID   = "file:///C:/Users/Patty/Documents/CPE461/RFID-Microscope/src/rfid/video-files/birds-SD.mp4";
 //    public static final String BEETLE_VID         = "file:///C:/Users/Patty/Documents/CPE461/RFID-Microscope/src/rfid/video-files/coral-HD.mp4";
