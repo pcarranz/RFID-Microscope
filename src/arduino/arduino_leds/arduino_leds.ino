@@ -40,81 +40,24 @@ void loop() {
 
 void lightOrange() {
   analogWrite(RED_PIN, 255);
-   analogWrite(GREEN_PIN, 0);
-   analogWrite(BLUE_PIN, 128);
-//  int i;
-//  
-//  for(i = 0; i < 255; i++)
-//  {
-//    analogWrite(RED_PIN, i);
-//    delay(FADE_SPEED);
-//  }
-//  for(i = 0; i < 128; i++)
-//  {
-//    analogWrite(GREEN_PIN, i);
-//    delay(FADE_SPEED);
-//  }
+  analogWrite(GREEN_PIN, 0);
+  analogWrite(BLUE_PIN, 128);
 }
 
 void lightPurple() {
   analogWrite(RED_PIN, 155);
   analogWrite(GREEN_PIN, 48);
-  analogWrite(BLUE_PIN, 255);
-  
-//  int i;
-//  
-//  for(i = 0; i < 155; i++)
-//  {
-//    analogWrite(RED_PIN, 75);
-//    delay(FADE_SPEED);
-//  }
-//  for(i = 0; i < 48; i++)
-//  {
-//    analogWrite(GREEN_PIN, 75);
-//    delay(FADE_SPEED);
-//  }
-//  for(i = 0; i < 255; i++)
-//  {
-//    analogWrite(BLUE_PIN, i);
-//    delay(FADE_SPEED);
-//  }  
+  analogWrite(BLUE_PIN, 255);  
 }
 
 void lightGreen() {
    analogWrite(RED_PIN, 188);
    analogWrite(GREEN_PIN, 238);
    analogWrite(BLUE_PIN, 104);
-
-//  int i;
-// 
-//  for(i = 0; i < 188; i++)
-//  {
-//     analogWrite(RED_PIN, i);
-//     delay(FADE_SPEED);
-//  }  
-//  for(i = 0; i < 238; i++)
-//  {
-//     analogWrite(GREEN_PIN, i);
-//     delay(FADE_SPEED);
-//  }
-//  for(i = 0; i < 104; i++)
-//  {
-//     analogWrite(BLUE_PIN, i);
-//     delay(FADE_SPEED);
-//  }
 }
 
 void lightsOff() {
   analogWrite(RED_PIN, 0);
-   analogWrite(GREEN_PIN, 0);
-   analogWrite(BLUE_PIN, 0);
-//   int i;
-//  
-//  for(i = 0; i < 120; i++)
-//  {
-//    analogWrite(RED_PIN, 0);
-//    analogWrite(GREEN_PIN, 0);
-//    analogWrite(BLUE_PIN, 0);
-//    delay(FADE_SPEED);
-//  }
+  analogWrite(GREEN_PIN, 0);
+  analogWrite(BLUE_PIN, 0);
 }
