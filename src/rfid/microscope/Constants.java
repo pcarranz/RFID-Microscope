@@ -162,26 +162,28 @@ public interface Constants
             + "- Maple produces winged seed which moves like a helicopter when it falls from the trees.";
     
     // Specimen Microscopic Image File Paths
-    public static final String VOLCANIC_ROCK_IMG  = "/rfid/microscope-images/volcanic-rock.jpg";
-//    public static final String SNAKE_SKIN_IMG     = "/rfid/microscope-images/snake-skin.jpg";
-//    public static final String BIRD_FEATHER_IMG   = "/rfid/microscope-images/bird-feather.JPG";
-//    public static final String BEETLE_IMG         = "/rfid/microscope-images/beetle.jpg";
-//    public static final String FOSSIL_IMG         = "/rfid/microscope-images/fossil.jpg";
-//    public static final String SHARK_TOOTH_IMG    = "/rfid/microscope-images/cotton.jpg";
+    public static final String VOLCANIC_ROCK_IMG  = "/rfid/microscope-images/obsidian.jpg";
+    public static final String SNAKE_SKIN_IMG     = "/rfid/microscope-images/snake-skin.jpg";
+    public static final String BIRD_FEATHER_IMG   = "/rfid/microscope-images/bird-feather.JPG";
+    public static final String BEETLE_IMG         = "/rfid/microscope-images/beetle.jpg";
+    public static final String FOSSIL_IMG         = "/rfid/microscope-images/fossil-ammonite.jpg";
+    public static final String SHARK_TOOTH_IMG    = "/rfid/microscope-images/shark-tooth.jpg";
 //    public static final String CORAL_IMG          = "/rfid/microscope-images/coral.jpg";
-//    public static final String MAPLE_LEAF_IMG     = "/rfid/microscope-images/leaf.jpg";
+    public static final String BUTTERFLY_IMG      = "/rfid/microscope-images/butterfly.jpg";
 //    public static final String TOMATO_SEEDS_IMG   = "/rfid/microscope-images/tomato.jpg";
+    public static final String MAPLE_LEAF_IMG     = "/rfid/microscope-images/maple-leaf.jpg";
     
     // Specimen Microscopic Image Objects
     public static final Image volcanicRockImage = new Image(VOLCANIC_ROCK_IMG);
-//    public static final Image snakeSkinImage    = new Image(SNAKE_SKIN_IMG);
-//    public static final Image birdImage         = new Image(BIRD_FEATHER_IMG);
-//    public static final Image beetleImage       = new Image(BEETLE_IMG);
-//    public static final Image fossilImage       = new Image(FOSSIL_IMG);
-//    public static final Image sharkToothImage   = new Image(SHARK_TOOTH_IMG);
+    public static final Image snakeSkinImage    = new Image(SNAKE_SKIN_IMG);
+    public static final Image birdImage         = new Image(BIRD_FEATHER_IMG);
+    public static final Image beetleImage       = new Image(BEETLE_IMG);
+    public static final Image fossilImage       = new Image(FOSSIL_IMG);
+    public static final Image sharkToothImage   = new Image(SHARK_TOOTH_IMG);
 //    public static final Image coralImage        = new Image(CORAL_IMG);
-//    public static final Image mapleLeafImage    = new Image(MAPLE_LEAF_IMG);
+    public static final Image butterflyImage        = new Image(BUTTERFLY_IMG);
 //    public static final Image tomatoSeedsImage  = new Image(TOMATO_SEEDS_IMG);
+    public static final Image mapleLeafImage    = new Image(MAPLE_LEAF_IMG);
     
     
     // Specimen Video Objects
