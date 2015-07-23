@@ -28,7 +28,7 @@ class COM_A_listener implements SerialPortEventListener
                     // Handle tag based on COM port
                     if(event.getPortName().equals(Constants.COM_A))
                     {
-                        RFIDMicroscope.factoidsHandler();
+                        RFIDMicroscope.factsHandler();
                     }
                 }
                 catch(SerialPortException ex)

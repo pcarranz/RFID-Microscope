@@ -10,6 +10,8 @@ package rfid.microscope;
 import javafx.geometry.Insets;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -32,6 +34,11 @@ import jssc.SerialPort;
 import jssc.SerialPortException;
 
 public class RFIDMicroscope extends Application implements Constants {
+
+   // 
+   public static int microscopeListenerTracker = 0;
+   public static int factsListenerTracker = 0;
+   public static int videoListenerTracker = 0;
 
    // Serial Port Objects
    public static SerialPort serialPortA;
@@ -214,25 +221,27 @@ public class RFIDMicroscope extends Application implements Constants {
    private static void initData() {
       // Set Specimen Names
       specimenNameData.put(Constants.VOLCANIC_ROCK_ID, Constants.VOLCANIC_ROCK);
-//        specimenNameData.put(Constants.SNAKE_SKIN_ID, Constants.SNAKE_SKIN);
-//        specimenNameData.put(Constants.BIRD_FEATHER_ID, Constants.BIRD_FEATHER);
-//        specimenNameData.put(Constants.BEETLE_ID, Constants.BEETLE);
-//        specimenNameData.put(Constants.FOSSIL_ID, Constants.FOSSIL);
-//        specimenNameData.put(Constants.SHARK_TOOTH_ID, Constants.SHARK_TOOTH);
-//        specimenNameData.put(Constants.CORAL_ID, Constants.CORAL);
-//        specimenNameData.put(Constants.BUTTERFLY_ID, Constants.MAPLE_LEAF);
+      specimenNameData.put(Constants.SNAKE_SKIN_ID, Constants.SNAKE_SKIN);
+      specimenNameData.put(Constants.BIRD_FEATHER_ID, Constants.BIRD_FEATHER);
+      specimenNameData.put(Constants.BEETLE_ID, Constants.BEETLE);
+      specimenNameData.put(Constants.FOSSIL_ID, Constants.FOSSIL);
+      specimenNameData.put(Constants.SHARK_TOOTH_ID, Constants.SHARK_TOOTH);
+      specimenNameData.put(Constants.CORAL_ID, Constants.CORAL);
+      specimenNameData.put(Constants.BUTTERFLY_ID, Constants.MAPLE_LEAF);
 
       // Set Fact data
       factData.put(Constants.VOLCANIC_ROCK_ID, Constants.VOLCANIC_ROCK_FACTS);
-//        factData.put(Constants.SNAKE_SKIN_ID, Constants.SNAKE_SKIN_FACTS);
-//        factData.put(Constants.BIRD_FEATHER_ID, Constants.BIRD_FEATHER_FACTS);
-//        factData.put(Constants.BEETLE_ID, Constants.BEETLE_FACTS);
-//        factData.put(Constants.FOSSIL_ID, Constants.FOSSIL_FACTS);
-//        factData.put(Constants.SHARK_TOOTH_ID, Constants.SHARK_TOOTH_FACTS);
-//        factData.put(Constants.CORAL_ID, Constants.CORAL_FACTS);
-//        factData.put(Constants.BUTTERFLY_ID, Constants.MAPLE_LEAF_FACTS);
+      factData.put(Constants.SNAKE_SKIN_ID, Constants.SNAKE_SKIN_FACTS);
+      factData.put(Constants.BIRD_FEATHER_ID, Constants.BIRD_FEATHER_FACTS);
+      factData.put(Constants.BEETLE_ID, Constants.BEETLE_FACTS);
+      factData.put(Constants.FOSSIL_ID, Constants.FOSSIL_FACTS);
+      factData.put(Constants.SHARK_TOOTH_ID, Constants.SHARK_TOOTH_FACTS);
+      factData.put(Constants.CORAL_ID, Constants.CORAL_FACTS);
+      factData.put(Constants.BUTTERFLY_ID, Constants.BUTTERFLY);
+      factData.put(Constants.TOMATO_SEEDS_ID, Constants.TOMATO_SEEDS);
+      factData.put(Constants.MAPLE_LEAF_ID, Constants.MAPLE_LEAF);
 
-      // TODO set microscopic picture data
+      // Set microscopic picture data
       imageData.put(Constants.VOLCANIC_ROCK_ID, volcanicRockImage);
 //        imageData.put(Constants.SNAKE_SKIN_ID, snakeSkinImage);
 //        imageData.put(Constants.BIRD_FEATHER_ID, birdImage);
@@ -242,7 +251,7 @@ public class RFIDMicroscope extends Application implements Constants {
 //        imageData.put(Constants.CORAL_ID, coralImage);
 //        imageData.put(Constants.BUTTERFLY_ID, mapleLeafImage);
 
-      // TODO set video data
+      // Set video data
       videoData.put(Constants.VOLCANIC_ROCK_ID, volcanicRockVideo);
 //        videoData.put(Constants.SNAKE_SKIN_ID, snakeSkinVideo);
 //        videoData.put(Constants.BIRD_FEATHER_ID, birdVideo);
@@ -259,28 +268,31 @@ public class RFIDMicroscope extends Application implements Constants {
    /*
     * Specimen Fun Facts Handler.
     */
-   public static void factoidsHandler() {
-      System.out.println();
-      System.out.println("Factoids Handler...");
+   public static void factsHandler() {
+      System.out.println("\nFactoids Handler...");
 
       Platform.runLater(() -> {
-         // Turn on indicator LED
-         try {
-            System.out.println("Write to Arduino successful: "
-                    + arduinoPort.writeInt(1));
-         }
-         catch (SerialPortException ex) {
-            System.out.println(ex);
-         }
+         if (factsListenerTracker == 0) {
+            // Turn on indicator LED
+            try {
+               System.out.println("Write to Arduino successful: "
+                       + arduinoPort.writeInt(1));
+            }
+            catch (SerialPortException ex) {
+               System.out.println(ex);
+            }
 
-         // Remove the image if there is one
-         contentPane.getChildren().clear();
-         contentPane.getChildren().add(specimenFacts);
+            // Remove the image if there is one
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(specimenFacts);
 
-         // Display specimen info and facts
-         readerNumber.setText(Constants.READER_1);
-         specimenName.setText(getSpecimenName(tagId));
-         specimenFacts.setText(getSpecimenFacts(tagId));
+            // Display specimen info and facts
+            readerNumber.setText(Constants.READER_1);
+            specimenName.setText(getSpecimenName(tagId));
+            specimenFacts.setText(getSpecimenFacts(tagId));
+            
+            factsListenerTracker = 1;
+         }
       });
    }
 
@@ -288,29 +300,49 @@ public class RFIDMicroscope extends Application implements Constants {
     * Microscope image handler
     */
    public static void microscopeHandler() {
-      System.out.println();
-      System.out.println("Microscope handler...");
+      System.out.println("\nMicroscope handler...");
+      if (microscopeListenerTracker == 0) {
+         // Run on UI thread, not Serial thread
+         Platform.runLater(() -> {
+            // Turn on indicator LEDs
+            try {
+               System.out.println("Write to Arduino successful: "
+                       + arduinoPort.writeInt(2));
+            }
+            catch (SerialPortException ex) {
+               System.out.println(ex);
+            }
 
-      Platform.runLater(() -> {
-         // Remove the video block if there is one
-         contentPane.getChildren().clear();
-         contentPane.getChildren().add(microscopeImageView);
+            // Remove the video block if there is one
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(microscopeImageView);
 
-         // Display specimen info and image
-         readerNumber.setText(Constants.READER_2);
-         specimenName.setText(getSpecimenName(tagId));
-         microscopeImageView.setImage(getSpecimenImage(tagId));
-      });
+            // Display specimen info and image
+            readerNumber.setText(Constants.READER_2);
+            specimenName.setText(getSpecimenName(tagId));
+            microscopeImageView.setImage(getSpecimenImage(tagId));
+         });
+         microscopeListenerTracker = 1;
+      }
    }
 
    /*
     * Video handler.
     */
    public static void videoHandler() {
-      System.out.println();
-      System.out.println("Video Handler...");
+      System.out.println("\nVideo Handler...");
 
+      // Run on UI thread, not Serial thread
       Platform.runLater(() -> {
+         // Turn on indicator LEDs
+         try {
+            System.out.println("Write to Arduino successful: "
+                    + arduinoPort.writeInt(3));
+         }
+         catch (SerialPortException ex) {
+            System.out.println(ex);
+         }
+
          RFIDTimer.timer.cancel();
          System.out.println("Timer cancelled.");
 

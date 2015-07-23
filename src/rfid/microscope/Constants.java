@@ -6,7 +6,7 @@ import javafx.scene.media.MediaPlayer;
 
 /**
  *
- * @author Patty
+ * @author PCarranza
  */
 public interface Constants
 {
@@ -16,7 +16,7 @@ public interface Constants
     public static final String COM_A = "COM4";
     public static final String COM_B = "COM5";
     public static final String COM_C = "COM6";
-    public static final String ARDUINO_PORT = "COM3";
+    public static final String ARDUINO_PORT = "COM8";
     
     // Current RFID Reader Numbers
     public static final String READER_1 = "1";
