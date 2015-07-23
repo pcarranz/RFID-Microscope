@@ -84,9 +84,12 @@ public interface Constants
             + "Diet: Omnivore\n"
             + "Scientific Name: Coturnix coturnix (California Quail)\n\n"
             + DID_YOU_KNOW
-            + "- Birds have both feathers and scales. You can find scales on the legs and feet of most birds.\n"
-            + "- There are four basic wing shapes that apply to most flying birds: Elliptical, long pointed, long narrow, and broad.\n"
-            + "- Feathers are very strong and flexible. To allow both lift and forward movement, feathers can"
+            + "- Birds have both feathers and scales. You can find scales on the"
+            + " legs and feet of most birds.\n"
+            + "- There are four basic wing shapes that apply to most flying birds:"
+            + " Elliptical, long pointed, long narrow, and broad.\n"
+            + "- Feathers are very strong and flexible. To allow both lift and"
+            + " forward movement, feathers can"
             + " bend at almost right angles.\n"
             + "- California quail usually live in hot, dry areas without much water.\n"
             + " They mostly gain nutrients through moist plants.\n"
@@ -99,10 +102,13 @@ public interface Constants
             + DID_YOU_KNOW
             + "- Adult beetles have two sets of wings.\n"
             + "- Most beetles only live for a year.\n"
-            + "- \"Fireflies\" and \"Lightning bugs\" are also beetles. They glow in the dark to communicate.\n"
-            + "- Beetles cannot see very well, so they communicate using pheromones, sounds or vibrations.\n"
+            + "- \"Fireflies\" and \"Lightning bugs\" are also beetles. They "
+            + "glow in the dark to communicate.\n"
+            + "- Beetles cannot see very well, so they communicate using pheromones, "
+            + "sounds or vibrations.\n"
             + "- Beetles live everywhere – from hot deserts to the polar ice caps.\n"
-            + "- They feed on leaves, fruits, flowers and buds of a range of plants including roses.";
+            + "- They feed on leaves, fruits, flowers and buds of a range of "
+            + "plants including roses.";
     
     public static final String FOSSIL_FACTS         = 
               "Type: Invertebrate\n"
@@ -112,9 +118,11 @@ public interface Constants
             + "- Ammonites lived in the sea 240-65 million years ago.\n"
             + "- They became extinct along with the dinosaurs.\n"
             + "- cientists use the various shapes and sizes of ammonite "
-            + "shells that appeared and disappeared through the ages to date other fossils.\n"
+            + "shells that appeared and disappeared through the ages to date "
+            + "other fossils.\n"
             + "- They ate small fish, crabs, lobsters, and shrimps.\n"
-            + "- Ammonites constantly built new shells as they grew, but only lived in the outer chamber.";
+            + "- Ammonites constantly built new shells as they grew, but only"
+            + " lived in the outer chamber.";
     
     public static final String SHARK_TOOTH_FACTS    = 
               "Composition: Calcium phosphate minerals\n"
@@ -122,7 +130,8 @@ public interface Constants
             + "- Sharks have the most powerful jaws on the planet.  Unlike most "
             + "animals' jaws, both the sharks' upper and lower jaws move.\n"
             + " - A shark bites with it's lower jaw first and then its upper.  "
-            + "It tosses its head back and forth to tear loose a piece of meat which it swallows whole.\n"
+            + "It tosses its head back and forth to tear loose a piece of meat "
+            + "which it swallows whole.\n"
             + "- A shark may grow and use over 20,000 teeth in its lifetime!\n"
             + "- Each type of shark has a different shaped tooth depending on their "
             + "diet. For example, carnivorous sharks have much pointier teeth).\n"
@@ -136,7 +145,8 @@ public interface Constants
             + "Scientific Name: Anthozoa\n\n"
             + DID_YOU_KNOW
             + "- Coral polyps are tiny, soft-bodied organisms related to jellyfish.\n"
-            + "- They have a protective limestone skeleton, which forms the structure of coral reefs.\n"
+            + "- They have a protective limestone skeleton, which forms the "
+            + "structure of coral reefs.\n"
             + "- Coral reefs have been around for millions of years.\n"
             + "- The reefs grow best in warm, shallow, clear, sunny and moving water.\n"
             + "- Coral reefs contain 25% of the world's marine fish species.\n"
@@ -144,10 +154,33 @@ public interface Constants
             + "many colors from the billions of colorful algae they host.\n";
     
     public static final String BUTTERFLY_FACTS  =
-            "Butterfly Facts";
+            "Type: Insect\n"
+            + "Diet: Herbivore\n"
+            + "Scientific Name: Rhopalocera\n\n"
+            + DID_YOU_KNOW
+            + "- Butterflies taste through their feet. They usually food on the"
+            + "nectar of plants.\n"
+            + "- Butterflies can live anywhere from 2 days to 11 months.\n"
+            + "Most butterflies live in tropical rainforests, but they can"
+            + "live in all climates and altitudes of the world.\n"
+            + "Butterflies are colorful so that they can mate, absorb heat, and"
+            + "blend in with other flowers while feeding."
+            + "Scientists estimate that there are 28,000 species of butterflies"
+            + "throughout the world.";
     
     public static final String TOMATO_SEEDS_FACTS =
-            "Tomato seed facts";
+            "Type: Plant\n"
+            + "Scientific Name: Solanum lycopersicom\n"
+            + DID_YOU_KNOW
+            + "- A tomato is considered a fruit since a tomato has seeds and"
+            + "grows from a flowering plant."
+            + "- They originated in the South American Andes around the area of"
+            + " modern day Peru and was first used as a food by the Aztec's in "
+            + "Southern Mexico.\n"
+            + "- Tomatoes have been grown in space before!\n"
+            + "- It usually takes about 6-8 weeks to grow tomatoes after planting seeds.\n"
+            + "- Most tomatoes are red, but there are also green, yellow, orange,"
+            + "pink, black, brown, white, and purple tomatoes. ";
     
     public static final String MAPLE_LEAF_FACTS         = 
               "Type: Plant\n"
@@ -159,7 +192,8 @@ public interface Constants
             + "- A maple leaf can be found in the center of Canada's flag.\n"
             + "- Leaves are divided in 3 to 9 lobes. They are arranged opposite "
             + "to each other on the branches."
-            + "- Maple produces winged seed which moves like a helicopter when it falls from the trees.";
+            + "- Maple produces winged seed which moves like a helicopter when"
+            + " it falls from the trees.";
     
     // Specimen Microscopic Image File Paths
     public static final String VOLCANIC_ROCK_IMG  = "/rfid/microscope-images/obsidian.jpg";
