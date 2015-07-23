@@ -143,6 +143,12 @@ public interface Constants
             + "- Coral polyps are actually translucent animals. They get there "
             + "many colors from the billions of colorful algae they host.\n";
     
+    public static final String BUTTERFLY_FACTS  =
+            "Butterfly Facts";
+    
+    public static final String TOMATO_SEEDS_FACTS =
+            "Tomato seed facts";
+    
     public static final String MAPLE_LEAF_FACTS         = 
               "Type: Plant\n"
             + "Scientific Name: Acer (Maple Tree)\n"
