@@ -13,6 +13,7 @@ import static rfid.microscope.RFIDMicroscope.isMicroscopeOn;
  * @author Patricia Carranza
  */
 public class RFIDTimer {
+
    public static Timer timer;
 
    // Runs after 5 seconds
@@ -23,9 +24,8 @@ public class RFIDTimer {
    }
 
    class RFIDTimerReminder extends TimerTask {
+
       public void run() {
-         System.out.println("Timer handler");
-         
          if (isFactsOn) {
             isFactsOn = false;
 
@@ -41,7 +41,7 @@ public class RFIDTimer {
          }
          else if (isMicroscopeOn) {
             isMicroscopeOn = false;
-            
+
             try {
                serialPortC.openPort();
                serialPortC.addEventListener(new COM_C_listener());
@@ -49,10 +49,10 @@ public class RFIDTimer {
             catch (SerialPortException ex) {
                System.out.println(ex);
             }
-            
+
             System.out.println("Turn on Arrow LEDs 2");
          }
-         
+
          timer.cancel();
       }
    }

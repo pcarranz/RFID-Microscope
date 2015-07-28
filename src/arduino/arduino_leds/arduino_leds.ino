@@ -10,7 +10,6 @@
 #define F_RED_PIN 5
 #define F_GREEN_PIN 6
 #define F_BLUE_PIN 3
-//#define FADE_SPEED 10  // Higher to slow down 
 
 // Microscope Handler LED Pins
 #define M_RED_PIN 10
