@@ -25,11 +25,11 @@ class COM_A_listener implements SerialPortEventListener
                     RFIDMicroscope.tagId = RFIDMicroscope.serialPortA.readString(); //Read 12 bytes from serial port
                     System.out.println("Tag ID: " + RFIDMicroscope.tagId);
                                         
-                    // Handle tag based on COM port
-                    if(event.getPortName().equals(Constants.COM_A))
-                    {
+//                    // Handle tag based on COM port
+//                    if(event.getPortName().equals(Constants.COM_A))
+//                    {
                         RFIDMicroscope.factsHandler();
-                    }
+//                    }
                 }
                 catch(SerialPortException ex)
                 {

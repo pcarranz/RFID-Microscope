@@ -10,9 +10,12 @@ package rfid.microscope;
 import javafx.geometry.Insets;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -27,12 +30,12 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import jssc.SerialPort;
 import jssc.SerialPortException;
 
 public class RFIDMicroscope extends Application implements Constants {
-
    //
    public static Boolean isMicroscopeOn = false;
    public static Boolean isFactsOn = false;
@@ -71,7 +74,7 @@ public class RFIDMicroscope extends Application implements Constants {
    public static FadeTransition fadeImage = new FadeTransition(Duration.millis(1000), microscopeImageView);
 
    @Override
-   public void start(Stage primaryStage) throws InterruptedException {
+   public void start(Stage primaryStage) throws InterruptedException, SerialPortException {
       // RFID reader number circle
       Circle rfidCircle = new Circle(40, Paint.valueOf("#eea95a"));
       StackPane circlePane = new StackPane();
@@ -123,17 +126,44 @@ public class RFIDMicroscope extends Application implements Constants {
       // Setup RFID reader ports and specimen data
       attachEventListeners();
       initData();
+      serialPortB.closePort();
+      serialPortC.closePort();
 
       // Setup RFID reader timer
-      new RFIDTimer();
-      System.out.println("Task scheduled.");
-
+//      new RFIDTimer();
+//      System.out.println("Task scheduled.");
       Scene scene = new Scene(root, 600, 450);
 
       primaryStage.setFullScreen(true);
       primaryStage.setTitle("RFID Virtual Microscope");
       primaryStage.setScene(scene);
       primaryStage.show();
+      
+      // Set up arduino port
+      arduinoPort = new SerialPort(Constants.ARDUINO_PORT);
+      try {
+         arduinoPort.openPort();
+         arduinoPort.setParams(
+                 SerialPort.BAUDRATE_9600,
+                 SerialPort.DATABITS_8,
+                 SerialPort.STOPBITS_1,
+                 SerialPort.PARITY_NONE);
+         Thread.sleep(5000);  // Give Arduino time to reboot
+      }
+      catch (SerialPortException ex) {
+         System.out.println(ex);
+      }
+      
+      // Turn of all LEDs when application is close
+      primaryStage.setOnCloseRequest((WindowEvent event) -> {
+        try {
+            System.out.println("Write to Arduino successful: "
+                    + arduinoPort.writeInt(0));
+         }
+         catch (SerialPortException ex) {
+            System.out.println(ex);
+         } 
+      });
    }
 
    /**
@@ -201,19 +231,19 @@ public class RFIDMicroscope extends Application implements Constants {
       }
 
       // Set up Arduino port
-      arduinoPort = new SerialPort(Constants.ARDUINO_PORT);
-      try {
-         arduinoPort.openPort();
-         arduinoPort.setParams(
-                 SerialPort.BAUDRATE_9600,
-                 SerialPort.DATABITS_8,
-                 SerialPort.STOPBITS_1,
-                 SerialPort.PARITY_NONE);
-         Thread.sleep(5000);  // Give Arduino time to reboot
-      }
-      catch (SerialPortException ex) {
-         System.out.println(ex);
-      }
+//      arduinoPort = new SerialPort(Constants.ARDUINO_PORT);
+//      try {
+//         arduinoPort.openPort();
+//         arduinoPort.setParams(
+//                 SerialPort.BAUDRATE_9600,
+//                 SerialPort.DATABITS_8,
+//                 SerialPort.STOPBITS_1,
+//                 SerialPort.PARITY_NONE);
+//         Thread.sleep(5000);  // Give Arduino time to reboot
+//      }
+//      catch (SerialPortException ex) {
+//         System.out.println(ex);
+//      }
    }
 
    private static void initData() {
@@ -243,15 +273,15 @@ public class RFIDMicroscope extends Application implements Constants {
 
       // Set microscopic picture data
       imageData.put(Constants.VOLCANIC_ROCK_ID, volcanicRockImage);
-        imageData.put(Constants.SNAKE_SKIN_ID, snakeSkinImage);
-        imageData.put(Constants.BIRD_FEATHER_ID, birdImage);
-        imageData.put(Constants.BEETLE_ID, beetleImage);
-        imageData.put(Constants.FOSSIL_ID, fossilImage);
-        imageData.put(Constants.SHARK_TOOTH_ID, sharkToothImage);
+      imageData.put(Constants.SNAKE_SKIN_ID, snakeSkinImage);
+      imageData.put(Constants.BIRD_FEATHER_ID, birdImage);
+      imageData.put(Constants.BEETLE_ID, beetleImage);
+      imageData.put(Constants.FOSSIL_ID, fossilImage);
+      imageData.put(Constants.SHARK_TOOTH_ID, sharkToothImage);
 //        imageData.put(Constants.CORAL_ID, coralImage);
-        imageData.put(Constants.BUTTERFLY_ID, butterflyImage);
+      imageData.put(Constants.BUTTERFLY_ID, butterflyImage);
 //        imageData.put(Constants.TOMATO_SEEDS_ID, Constants.tomatoSeedsImage);
-        imageData.put(Constants.MAPLE_LEAF_ID, mapleLeafImage);
+      imageData.put(Constants.MAPLE_LEAF_ID, mapleLeafImage);
 
       // Set video data
       videoData.put(Constants.VOLCANIC_ROCK_ID, volcanicRockVideo);
@@ -271,33 +301,42 @@ public class RFIDMicroscope extends Application implements Constants {
     * Specimen Fun Facts Handler.
     */
    public static void factsHandler() {
-      System.out.println("\nFactoids Handler...");
+      System.out.println("\nFacts Handler...");
 
       Platform.runLater(() -> {
-         if (isFactsOn == false) {
-            isMicroscopeOn = false;
-            isVideoOn = false;
-            
-            // Turn on indicator LED
-            try {
-               System.out.println("Write to Arduino successful: "
-                       + arduinoPort.writeInt(1));
-            }
-            catch (SerialPortException ex) {
-               System.out.println(ex);
-            }
+         // Keep track of which reader on
+         isFactsOn = true;
 
-            // Remove the image if there is one
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(specimenFacts);
-
-            // Display specimen info and facts
-            readerNumber.setText(Constants.READER_1);
-            specimenName.setText(getSpecimenName(tagId));
-            specimenFacts.setText(getSpecimenFacts(tagId));
-            
-            isFactsOn = true;
+         // Turn on indicator LED
+         try {
+            System.out.println("Write to Arduino successful: "
+                    + arduinoPort.writeInt(0));
+            System.out.println("Write to Arduino successful: "
+                    + arduinoPort.writeInt(1));
          }
+         catch (SerialPortException ex) {
+            System.out.println(ex);
+         }
+
+         // Remove the image if there is one
+         contentPane.getChildren().clear();
+         contentPane.getChildren().add(specimenFacts);
+
+         // Display specimen info and facts
+         readerNumber.setText(Constants.READER_1);
+         specimenName.setText(getSpecimenName(tagId));
+         specimenFacts.setText(getSpecimenFacts(tagId));
+
+         // Close current open port
+         try {
+            serialPortA.closePort();
+         }
+         catch (SerialPortException ex) {
+            System.out.println(ex);
+         }
+
+         // Run timer for arrow leds
+         new RFIDTimer();
       });
    }
 
@@ -306,33 +345,44 @@ public class RFIDMicroscope extends Application implements Constants {
     */
    public static void microscopeHandler() {
       System.out.println("\nMicroscope handler...");
-      
-      if (isMicroscopeOn == false) {
-         isFactsOn = false;
-         isVideoOn = false;
-         
-         // Run on UI thread, not Serial thread
-         Platform.runLater(() -> {
-            // Turn on indicator LEDs
-            try {
-               System.out.println("Write to Arduino successful: "
-                       + arduinoPort.writeInt(2));
-            }
-            catch (SerialPortException ex) {
-               System.out.println(ex);
-            }
 
-            // Remove the video block if there is one
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(microscopeImageView);
-
-            // Display specimen info and image
-            readerNumber.setText(Constants.READER_2);
-            specimenName.setText(getSpecimenName(tagId));
-            microscopeImageView.setImage(getSpecimenImage(tagId));
-         });
+      // Run on UI thread, not Serial thread
+      Platform.runLater(() -> {
+         // Keep track of which reader on
          isMicroscopeOn = true;
-      }
+
+         // Turn on indicator LEDs
+         try {
+            System.out.println("Write to Arduino successful: "
+                    + arduinoPort.writeInt(0));
+            
+             System.out.println("Write to Arduino successful: "
+                    + arduinoPort.writeInt(2));
+         }
+         catch (SerialPortException ex) {
+            System.out.println(ex);
+         }
+
+         // Remove the video block if there is one
+         contentPane.getChildren().clear();
+         contentPane.getChildren().add(microscopeImageView);
+
+         // Display specimen info and image
+         readerNumber.setText(Constants.READER_2);
+         specimenName.setText(getSpecimenName(tagId));
+         microscopeImageView.setImage(getSpecimenImage(tagId));
+         
+         // Close current open port
+         try {
+            serialPortB.closePort();
+         }
+         catch (SerialPortException ex) {
+            System.out.println(ex);
+         }
+         
+         // Run timer for arrow leds
+         new RFIDTimer();
+      });
    }
 
    /*
@@ -341,89 +391,73 @@ public class RFIDMicroscope extends Application implements Constants {
    public static void videoHandler() {
       System.out.println("\nVideo Handler...");
 
-      if (isVideoOn == false) {
-         isMicroscopeOn = false;
-         isFactsOn = false;
-         
-         // Run on UI thread, not Serial thread
-         Platform.runLater(() -> {
-            // Turn on indicator LEDs
+      // Run on UI thread, not Serial thread
+      Platform.runLater(() -> {
+         // Keep track of which reader on
+         isVideoOn = true;
+
+         // Turn on indicator LEDs
+         try {
+            System.out.println("Write to Arduino successful: "
+                    + arduinoPort.writeInt(0));
+            System.out.println("Write to Arduino successful: "
+                    + arduinoPort.writeInt(3));
+         }
+         catch (SerialPortException ex) {
+            System.out.println(ex);
+         }
+
+         // Clear content then add only video view
+         contentPane.getChildren().clear();
+         contentPane.getChildren().add(videoView);
+
+         // Update labels, clear facts
+         readerNumber.setText(Constants.READER_3);
+         specimenName.setText(getSpecimenName(tagId));
+
+         MediaPlayer video = getVideoMedia(tagId);
+         videoView.setMediaPlayer(video);
+         video.play();
+
+         // Runs when a video starts playing
+         video.setOnPlaying(() -> {
             try {
-               System.out.println("Write to Arduino successful: "
-                       + arduinoPort.writeInt(3));
+               // Close serial ports while video is playing
+               if (serialPortA.isOpened()) {
+                  serialPortA.closePort();
+               }
+               if (serialPortB.isOpened()) {
+                  serialPortB.closePort();
+               }
+               if (serialPortC.isOpened()) {
+                  serialPortC.closePort();
+               }
             }
-            catch (SerialPortException ex) {
-               System.out.println(ex);
+            catch (SerialPortException e) {
+               System.out.println(e);
             }
-
-            RFIDTimer.timer.cancel();
-            System.out.println("Timer cancelled.");
-
-            // Clear content then add only video view
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(videoView);
-
-            // Update labels, clear facts
-            readerNumber.setText(Constants.READER_3);
-            specimenName.setText(getSpecimenName(tagId));
-
-            MediaPlayer video = getVideoMedia(tagId);
-            videoView.setMediaPlayer(video);
-            video.play();
-
-            // Runs when a video starts playing
-            video.setOnPlaying(() -> {
-               try {
-                  // Close serial ports while video is playing
-                  if (serialPortA.isOpened()) {
-                     serialPortA.closePort();
-                  }
-                  if (serialPortB.isOpened()) {
-                     serialPortB.closePort();
-                  }
-                  if (serialPortC.isOpened()) {
-                     serialPortC.closePort();
-                  }
-               }
-               catch (SerialPortException e) {
-                  System.out.println(e);
-               }
-            });
-
-            // Runs when a video is finished playing
-            video.setOnEndOfMedia(() -> {
-               try {
-                  // Re-open serial ports
-                  if (!serialPortA.isOpened()) {
-                     serialPortA.openPort();
-                     serialPortA.addEventListener(new COM_A_listener());
-                  }
-                  if (!serialPortB.isOpened()) {
-                     serialPortB.openPort();
-                     serialPortB.addEventListener(new COM_B_listener());
-                  }
-                  if (!serialPortC.isOpened()) {
-                     serialPortC.openPort();
-                     serialPortC.addEventListener(new COM_C_listener());
-                  }
-
-                  // Clear video view
-                  contentPane.getChildren().remove(videoView);
-                  specimenFacts.setText("Select a specimen and place it on 1 to learn more!");
-                  specimenName.setText("");
-
-                  // Restart timer
-                  new RFIDTimer();
-                  System.out.println("Task scheduled.");
-               }
-               catch (SerialPortException e) {
-                  System.out.println(e);
-               }
-            });
-            
-            isVideoOn = true;
          });
-      }
+
+         // Runs when a video is finished playing
+         video.setOnEndOfMedia(() -> {
+            try {
+               // Open facts reader
+               if (!serialPortA.isOpened()) {
+                  serialPortA.openPort();
+                  serialPortA.addEventListener(new COM_A_listener());
+               }
+
+               // Clear video view
+               contentPane.getChildren().clear();
+               contentPane.getChildren().add(specimenFacts);
+               specimenFacts.setText(BEGIN_PROMPT);
+               specimenName.setText("");
+            }
+            catch (SerialPortException e) {
+               System.out.println(e);
+            }
+         });
+      });
    }
 
    private static String getSpecimenName(String specimenId) {

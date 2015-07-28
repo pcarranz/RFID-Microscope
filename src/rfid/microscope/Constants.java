@@ -12,6 +12,7 @@ public interface Constants
 {
    public static final int BAUDRATE_2400 = 2400;
    public static final String UNKNOWN = "Unknown Specimen";
+   public static final String BEGIN_PROMPT = "Select a specimen and place it on 1 to learn more!";
    
     // COM Port Numbers
     public static final String COM_A = "COM4";
@@ -199,7 +200,7 @@ public interface Constants
     // Specimen Microscopic Image File Paths
     public static final String VOLCANIC_ROCK_IMG  = "/rfid/microscope-images/obsidian.jpg";
     public static final String SNAKE_SKIN_IMG     = "/rfid/microscope-images/snake-skin.jpg";
-    public static final String BIRD_FEATHER_IMG   = "/rfid/microscope-images/bird-feather.JPG";
+    public static final String BIRD_FEATHER_IMG   = "/rfid/microscope-images/quail-feather.jpg";
     public static final String BEETLE_IMG         = "/rfid/microscope-images/beetle.jpg";
     public static final String FOSSIL_IMG         = "/rfid/microscope-images/fossil-ammonite.jpg";
     public static final String SHARK_TOOTH_IMG    = "/rfid/microscope-images/shark-tooth.jpg";

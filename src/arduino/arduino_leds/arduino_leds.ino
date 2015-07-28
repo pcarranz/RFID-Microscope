@@ -5,16 +5,35 @@
  * Cal Poly, San Luis Obispo
  * San Luis Obispo Children's Museum
  */
- 
-#define RED_PIN 5
-#define GREEN_PIN 6
-#define BLUE_PIN 3
-#define FADE_SPEED 10  // Higher to slow down 
+
+// Fact Handler LED Pins
+#define F_RED_PIN 5
+#define F_GREEN_PIN 6
+#define F_BLUE_PIN 3
+//#define FADE_SPEED 10  // Higher to slow down 
+
+// Microscope Handler LED Pins
+#define M_RED_PIN 10
+#define M_GREEN_PIN 11
+#define M_BLUE_PIN 9
+
+// Video Handler LED Pins
+#define V_RED_PIN 44
+#define V_GREEN_PIN 45
+#define V_BLUE_PIN 46
 
 void setup() {
-  pinMode(RED_PIN, OUTPUT);
-  pinMode(GREEN_PIN, OUTPUT);
-  pinMode(BLUE_PIN, OUTPUT);
+  pinMode(F_RED_PIN, OUTPUT);
+  pinMode(F_GREEN_PIN, OUTPUT);
+  pinMode(F_BLUE_PIN, OUTPUT);
+
+  pinMode(M_RED_PIN, OUTPUT);
+  pinMode(M_GREEN_PIN, OUTPUT);
+  pinMode(M_BLUE_PIN, OUTPUT);
+
+  pinMode(V_RED_PIN, OUTPUT);
+  pinMode(V_GREEN_PIN, OUTPUT);
+  pinMode(V_BLUE_PIN, OUTPUT);
   
   Serial.begin(9600);
 } 
@@ -24,10 +43,10 @@ void loop() {
     int val = Serial.read();
    
     if (val == 1) {
-      lightOrange();
+      lightRed();
     }
     else if (val == 2) {
-        lightPurple();
+        lightBlue();
     }
     else if (val == 3) {
       lightGreen();
@@ -38,26 +57,34 @@ void loop() {
   }
 }
 
-void lightOrange() {
-  analogWrite(RED_PIN, 255);
-  analogWrite(GREEN_PIN, 0);
-  analogWrite(BLUE_PIN, 128);
+void lightRed() {
+  analogWrite(F_RED_PIN, 200);
+  analogWrite(F_GREEN_PIN, 0);
+  analogWrite(F_BLUE_PIN, 0);
 }
 
-void lightPurple() {
-  analogWrite(RED_PIN, 155);
-  analogWrite(GREEN_PIN, 48);
-  analogWrite(BLUE_PIN, 255);  
+void lightBlue() {
+  analogWrite(M_RED_PIN, 0);
+  analogWrite(M_GREEN_PIN, 0);
+  analogWrite(M_BLUE_PIN, 200);  
 }
 
 void lightGreen() {
-   analogWrite(RED_PIN, 188);
-   analogWrite(GREEN_PIN, 238);
-   analogWrite(BLUE_PIN, 104);
+   analogWrite(V_RED_PIN, 0);
+   analogWrite(V_GREEN_PIN, 200);
+   analogWrite(V_BLUE_PIN, 0);
 }
 
 void lightsOff() {
-  analogWrite(RED_PIN, 0);
-  analogWrite(GREEN_PIN, 0);
-  analogWrite(BLUE_PIN, 0);
+  analogWrite(F_RED_PIN, 0);
+  analogWrite(F_GREEN_PIN, 0);
+  analogWrite(F_BLUE_PIN, 0);
+
+  analogWrite(M_RED_PIN, 0);
+  analogWrite(M_GREEN_PIN, 0);
+  analogWrite(M_BLUE_PIN, 0);
+
+  analogWrite(V_RED_PIN, 0);
+  analogWrite(V_GREEN_PIN, 0);
+  analogWrite(V_BLUE_PIN, 0);
 }
