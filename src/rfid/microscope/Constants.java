@@ -11,6 +11,7 @@ import javafx.scene.media.MediaPlayer;
 public interface Constants
 {
    public static final int BAUDRATE_2400 = 2400;
+   public static final String UNKNOWN = "Unknown Specimen";
    
     // COM Port Numbers
     public static final String COM_A = "COM4";

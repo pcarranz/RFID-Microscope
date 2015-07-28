@@ -37,9 +37,6 @@ public class RFIDMicroscope extends Application implements Constants {
    public static Boolean isMicroscopeOn = false;
    public static Boolean isFactsOn = false;
    public static Boolean isVideoOn = false;
-//   public static int microscopeListenerTracker = 0;
-//   public static int factsListenerTracker = 0;
-//   public static int videoListenerTracker = 0;
 
    // Serial Port Objects
    public static SerialPort serialPortA;
@@ -246,13 +243,15 @@ public class RFIDMicroscope extends Application implements Constants {
 
       // Set microscopic picture data
       imageData.put(Constants.VOLCANIC_ROCK_ID, volcanicRockImage);
-//        imageData.put(Constants.SNAKE_SKIN_ID, snakeSkinImage);
-//        imageData.put(Constants.BIRD_FEATHER_ID, birdImage);
-//        imageData.put(Constants.BEETLE_ID, beetleImage);
-//        imageData.put(Constants.FOSSIL_ID, fossilImage);
-//        imageData.put(Constants.SHARK_TOOTH_ID, sharkToothImage);
+        imageData.put(Constants.SNAKE_SKIN_ID, snakeSkinImage);
+        imageData.put(Constants.BIRD_FEATHER_ID, birdImage);
+        imageData.put(Constants.BEETLE_ID, beetleImage);
+        imageData.put(Constants.FOSSIL_ID, fossilImage);
+        imageData.put(Constants.SHARK_TOOTH_ID, sharkToothImage);
 //        imageData.put(Constants.CORAL_ID, coralImage);
-//        imageData.put(Constants.BUTTERFLY_ID, mapleLeafImage);
+        imageData.put(Constants.BUTTERFLY_ID, butterflyImage);
+//        imageData.put(Constants.TOMATO_SEEDS_ID, Constants.tomatoSeedsImage);
+        imageData.put(Constants.MAPLE_LEAF_ID, mapleLeafImage);
 
       // Set video data
       videoData.put(Constants.VOLCANIC_ROCK_ID, volcanicRockVideo);
@@ -428,7 +427,7 @@ public class RFIDMicroscope extends Application implements Constants {
    }
 
    private static String getSpecimenName(String specimenId) {
-      String result = "Unknown Specimen";
+      String result = UNKNOWN;
 
       if (specimenNameData.containsKey(specimenId)) {
          result = specimenNameData.get(specimenId);
@@ -438,7 +437,7 @@ public class RFIDMicroscope extends Application implements Constants {
    }
 
    private static String getSpecimenFacts(String specimenId) {
-      String result = "Unknown Specimen";
+      String result = UNKNOWN;
 
       if (factData.containsKey(specimenId)) {
          result = factData.get(specimenId);
