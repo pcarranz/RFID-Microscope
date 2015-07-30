@@ -309,9 +309,9 @@ public class RFIDMicroscope extends Application implements Constants {
 
          // Turn on indicator LED
          try {
-            System.out.println("Write to Arduino successful: "
+            System.out.println("Lights Off: "
                     + arduinoPort.writeInt(0));
-            System.out.println("Write to Arduino successful: "
+            System.out.println("Light Red (Facts): "
                     + arduinoPort.writeInt(1));
          }
          catch (SerialPortException ex) {
@@ -345,23 +345,29 @@ public class RFIDMicroscope extends Application implements Constants {
     */
    public static void microscopeHandler() {
       System.out.println("\nMicroscope handler...");
+      
+      // Turn on indicator LEDs
+         try {
+            System.out.println("Lights off: "
+                    + arduinoPort.writeInt(0));
+            
+             System.out.println("Light Blue (Microscope): "
+                    + arduinoPort.writeInt(2));
+             
+             // Turn off Arrow 1 LEDs
+             System.out.println("Arrow 1 Off: "
+                    + arduinoPort.writeInt(6));
+         }
+         catch (SerialPortException ex) {
+            System.out.println(ex);
+         }
 
       // Run on UI thread, not Serial thread
       Platform.runLater(() -> {
          // Keep track of which reader on
          isMicroscopeOn = true;
 
-         // Turn on indicator LEDs
-         try {
-            System.out.println("Write to Arduino successful: "
-                    + arduinoPort.writeInt(0));
-            
-             System.out.println("Write to Arduino successful: "
-                    + arduinoPort.writeInt(2));
-         }
-         catch (SerialPortException ex) {
-            System.out.println(ex);
-         }
+         
 
          // Remove the video block if there is one
          contentPane.getChildren().clear();
@@ -390,22 +396,26 @@ public class RFIDMicroscope extends Application implements Constants {
     */
    public static void videoHandler() {
       System.out.println("\nVideo Handler...");
+      
+      // Turn on indicator LEDs
+         try {
+            System.out.println("All lights off: "
+                    + arduinoPort.writeInt(0));
+            System.out.println("Light green (Video): "
+                    + arduinoPort.writeInt(3));
+            
+            // Turn off Arrow 2 LEDs
+             System.out.println("Arrow 2 Off: "
+                    + arduinoPort.writeInt(7));
+         }
+         catch (SerialPortException ex) {
+            System.out.println(ex);
+         }
 
       // Run on UI thread, not Serial thread
       Platform.runLater(() -> {
          // Keep track of which reader on
          isVideoOn = true;
-
-         // Turn on indicator LEDs
-         try {
-            System.out.println("Write to Arduino successful: "
-                    + arduinoPort.writeInt(0));
-            System.out.println("Write to Arduino successful: "
-                    + arduinoPort.writeInt(3));
-         }
-         catch (SerialPortException ex) {
-            System.out.println(ex);
-         }
 
          // Clear content then add only video view
          contentPane.getChildren().clear();

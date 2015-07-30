@@ -29,9 +29,9 @@ public interface Constants
     public static final String VOLCANIC_ROCK_ID  = "\n020080FA93\r";
     public static final String SNAKE_SKIN_ID     = "\n02007A5908\r";
     public static final String BIRD_FEATHER_ID   = "\n02007A5E18\r";
-    public static final String BEETLE_ID         = "\n02007F5281\r";
+    public static final String BEETLE_ID         = "\n160019A7F4\r";
     public static final String FOSSIL_ID         = "\n0200B01E11\r";
-    public static final String SHARK_TOOTH_ID    = "\n0200B2D1CF\r";
+    public static final String SHARK_TOOTH_ID    = "\n160019CFC9\r";
     public static final String CORAL_ID          = "\n0200802557\r";
     public static final String BUTTERFLY_ID      = "\n70006D5A37\r";
     public static final String TOMATO_SEEDS_ID   = "\n70006D2365\r";
