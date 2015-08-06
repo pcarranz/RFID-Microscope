@@ -23,6 +23,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Paint;
@@ -60,7 +61,8 @@ public class RFIDMicroscope extends Application implements Constants {
    public static final Map<String, String> factData = new ConcurrentHashMap<>();
    public static final Map<String, String> specimenNameData = new ConcurrentHashMap<>();
    public static final Map<String, Image> imageData = new ConcurrentHashMap<>();
-   public static final Map<String, MediaPlayer> videoData = new ConcurrentHashMap<>();
+//   public static final Map<String, MediaPlayer> videoData = new ConcurrentHashMap<>();
+   public static final Map<String, Media> videoData = new ConcurrentHashMap<>();
 
    // Image Objects
    public static ImageView microscopeImageView = new ImageView();
@@ -75,6 +77,13 @@ public class RFIDMicroscope extends Application implements Constants {
 
    @Override
    public void start(Stage primaryStage) throws InterruptedException, SerialPortException {
+      // Setup RFID reader ports and specimen data
+      attachEventListeners();
+      initData();
+      serialPortB.closePort();
+      serialPortC.closePort();
+      
+      /* Draw UI */
       // RFID reader number circle
       Circle rfidCircle = new Circle(40, Paint.valueOf("#eea95a"));
       StackPane circlePane = new StackPane();
@@ -86,7 +95,6 @@ public class RFIDMicroscope extends Application implements Constants {
       specimenNameBox.getChildren().addAll(circlePane, specimenName);
 
       // Container for specimen facts, images, and video
-      specimenFacts.setText("Place a specimen on 1 to begin!");
       contentPane.getChildren().add(specimenFacts);
 
       // Set styles
@@ -97,9 +105,9 @@ public class RFIDMicroscope extends Application implements Constants {
       readerNumber.setFont(Font.font(42.0));
       specimenName.setFont(Font.font(42.0));
 
-      specimenName.setPadding(new Insets(15, 0, 0, 0)); // top, bottom, right, left
+      specimenName.setPadding(new Insets(15, 0, 0, 0)); // top, right, bottom, left
       specimenFacts.setWrapText(true);
-      specimenFacts.setPadding(new Insets(0, 0, 5, 5)); // top, bottom, right, left
+      specimenFacts.setPadding(new Insets(80));// top, right, bottom, left
 
       readerNumber.setFill(Paint.valueOf("#FFF"));
       specimenName.setTextFill(Paint.valueOf("#FFF"));
@@ -118,20 +126,13 @@ public class RFIDMicroscope extends Application implements Constants {
       fadeImage.setToValue(1.0);
       fadeImage.setCycleCount(1);
 
-      // Split screen into 2 layouts - top and center
+      // Split screen into 2 sections - top and center
       BorderPane root = new BorderPane();
       root.setTop(specimenNameBox);
       root.setCenter(contentPane);
 
-      // Setup RFID reader ports and specimen data
-      attachEventListeners();
-      initData();
-      serialPortB.closePort();
-      serialPortC.closePort();
-
-      // Setup RFID reader timer
-//      new RFIDTimer();
-//      System.out.println("Task scheduled.");
+      // Show UI
+      specimenFacts.setText("Place a specimen on 1 to begin!");
       Scene scene = new Scene(root, 600, 450);
 
       primaryStage.setFullScreen(true);
@@ -154,7 +155,7 @@ public class RFIDMicroscope extends Application implements Constants {
          System.out.println(ex);
       }
       
-      // Turn of all LEDs when application is close
+      // Turn off all LEDs when application is closed
       primaryStage.setOnCloseRequest((WindowEvent event) -> {
         try {
             System.out.println("Write to Arduino successful: "
@@ -229,69 +230,56 @@ public class RFIDMicroscope extends Application implements Constants {
       catch (SerialPortException ex) {
          System.out.println(ex);
       }
-
-      // Set up Arduino port
-//      arduinoPort = new SerialPort(Constants.ARDUINO_PORT);
-//      try {
-//         arduinoPort.openPort();
-//         arduinoPort.setParams(
-//                 SerialPort.BAUDRATE_9600,
-//                 SerialPort.DATABITS_8,
-//                 SerialPort.STOPBITS_1,
-//                 SerialPort.PARITY_NONE);
-//         Thread.sleep(5000);  // Give Arduino time to reboot
-//      }
-//      catch (SerialPortException ex) {
-//         System.out.println(ex);
-//      }
    }
 
    private static void initData() {
       // Set Specimen Names
-      specimenNameData.put(Constants.VOLCANIC_ROCK_ID, Constants.VOLCANIC_ROCK);
-      specimenNameData.put(Constants.SNAKE_SKIN_ID, Constants.SNAKE_SKIN);
-      specimenNameData.put(Constants.BIRD_FEATHER_ID, Constants.BIRD_FEATHER);
-      specimenNameData.put(Constants.BEETLE_ID, Constants.BEETLE);
-      specimenNameData.put(Constants.FOSSIL_ID, Constants.FOSSIL);
-      specimenNameData.put(Constants.SHARK_TOOTH_ID, Constants.SHARK_TOOTH);
-      specimenNameData.put(Constants.CORAL_ID, Constants.CORAL);
-      specimenNameData.put(Constants.BUTTERFLY_ID, Constants.BUTTERFLY);
-      specimenNameData.put(Constants.TOMATO_SEEDS_ID, Constants.TOMATO_SEEDS);
-      specimenNameData.put(Constants.MAPLE_LEAF_ID, Constants.MAPLE_LEAF);
+      specimenNameData.put(VOLCANIC_ROCK_ID, VOLCANIC_ROCK);
+      specimenNameData.put(SNAKE_SKIN_ID, SNAKE_SKIN);
+      specimenNameData.put(BIRD_FEATHER_ID, BIRD_FEATHER);
+      specimenNameData.put(BEETLE_ID, BEETLE);
+      specimenNameData.put(FOSSIL_ID, FOSSIL);
+      specimenNameData.put(SHARK_TOOTH_ID, SHARK_TOOTH);
+      specimenNameData.put(CORAL_ID, CORAL);
+      specimenNameData.put(BUTTERFLY_ID, BUTTERFLY);
+      specimenNameData.put(TOMATO_SEEDS_ID, TOMATO_SEEDS);
+      specimenNameData.put(MAPLE_LEAF_ID, MAPLE_LEAF);
 
       // Set Fact data
-      factData.put(Constants.VOLCANIC_ROCK_ID, Constants.VOLCANIC_ROCK_FACTS);
-      factData.put(Constants.SNAKE_SKIN_ID, Constants.SNAKE_SKIN_FACTS);
-      factData.put(Constants.BIRD_FEATHER_ID, Constants.BIRD_FEATHER_FACTS);
-      factData.put(Constants.BEETLE_ID, Constants.BEETLE_FACTS);
-      factData.put(Constants.FOSSIL_ID, Constants.FOSSIL_FACTS);
-      factData.put(Constants.SHARK_TOOTH_ID, Constants.SHARK_TOOTH_FACTS);
-      factData.put(Constants.CORAL_ID, Constants.CORAL_FACTS);
-      factData.put(Constants.BUTTERFLY_ID, Constants.BUTTERFLY_FACTS);
-      factData.put(Constants.TOMATO_SEEDS_ID, Constants.TOMATO_SEEDS_FACTS);
-      factData.put(Constants.MAPLE_LEAF_ID, Constants.MAPLE_LEAF_FACTS);
+      factData.put(VOLCANIC_ROCK_ID, VOLCANIC_ROCK_FACTS);
+      factData.put(SNAKE_SKIN_ID, SNAKE_SKIN_FACTS);
+      factData.put(BIRD_FEATHER_ID, BIRD_FEATHER_FACTS);
+      factData.put(BEETLE_ID, BEETLE_FACTS);
+      factData.put(FOSSIL_ID, FOSSIL_FACTS);
+      factData.put(SHARK_TOOTH_ID, SHARK_TOOTH_FACTS);
+      factData.put(CORAL_ID, CORAL_FACTS);
+      factData.put(BUTTERFLY_ID, BUTTERFLY_FACTS);
+      factData.put(TOMATO_SEEDS_ID, TOMATO_SEEDS_FACTS);
+      factData.put(MAPLE_LEAF_ID, MAPLE_LEAF_FACTS);
 
       // Set microscopic picture data
-      imageData.put(Constants.VOLCANIC_ROCK_ID, volcanicRockImage);
-      imageData.put(Constants.SNAKE_SKIN_ID, snakeSkinImage);
-      imageData.put(Constants.BIRD_FEATHER_ID, birdImage);
-      imageData.put(Constants.BEETLE_ID, beetleImage);
-      imageData.put(Constants.FOSSIL_ID, fossilImage);
-      imageData.put(Constants.SHARK_TOOTH_ID, sharkToothImage);
+      imageData.put(VOLCANIC_ROCK_ID, volcanicRockImage);
+      imageData.put(SNAKE_SKIN_ID, snakeSkinImage);
+      imageData.put(BIRD_FEATHER_ID, birdImage);
+      imageData.put(BEETLE_ID, beetleImage);
+      imageData.put(FOSSIL_ID, fossilImage);
+      imageData.put(SHARK_TOOTH_ID, sharkToothImage);
 //        imageData.put(Constants.CORAL_ID, coralImage);
-      imageData.put(Constants.BUTTERFLY_ID, butterflyImage);
+      imageData.put(BUTTERFLY_ID, butterflyImage);
 //        imageData.put(Constants.TOMATO_SEEDS_ID, Constants.tomatoSeedsImage);
-      imageData.put(Constants.MAPLE_LEAF_ID, mapleLeafImage);
+      imageData.put(MAPLE_LEAF_ID, mapleLeafImage);
 
       // Set video data
-      videoData.put(Constants.VOLCANIC_ROCK_ID, volcanicRockVideo);
-//        videoData.put(Constants.SNAKE_SKIN_ID, snakeSkinVideo);
-//        videoData.put(Constants.BIRD_FEATHER_ID, birdVideo);
-//        videoData.put(Constants.BEETLE_ID, beetleVideo);
-//        videoData.put(Constants.FOSSIL_ID, fossilVideo);
-//        videoData.put(Constants.SHARK_TOOTH_ID, boneVideo);
-//        videoData.put(Constants.CORAL_ID, coralVideo);
-//        videoData.put(Constants.BUTTERFLY_ID, cottonVideo);
+//      videoData.put(VOLCANIC_ROCK_ID, volcanicRockMedia);
+      videoData.put(SNAKE_SKIN_ID, snakeSkinMedia);
+//      videoData.put(BIRD_FEATHER_ID, birdMedia);
+      videoData.put(BEETLE_ID, beetleMedia);
+//      videoData.put(FOSSIL_ID, fossilMedia);
+//      videoData.put(SHARK_TOOTH_ID, sharkMedia);
+        videoData.put(CORAL_ID, coralMedia);
+//      videoData.put(BUTTERFLY_ID, butterflyMedia);
+        videoData.put(TOMATO_SEEDS_ID, tomatoMedia);
+//      videoData.put(MAPLE_LEAF_ID, mapleMedia);
    }
 
    /*
@@ -425,12 +413,12 @@ public class RFIDMicroscope extends Application implements Constants {
          readerNumber.setText(Constants.READER_3);
          specimenName.setText(getSpecimenName(tagId));
 
-         MediaPlayer video = getVideoMedia(tagId);
-         videoView.setMediaPlayer(video);
-         video.play();
+         MediaPlayer videoPlayer = new MediaPlayer(getVideoMedia(tagId));
+         videoView.setMediaPlayer(videoPlayer);
+         videoPlayer.play();
 
          // Runs when a video starts playing
-         video.setOnPlaying(() -> {
+         videoPlayer.setOnPlaying(() -> {
             try {
                // Close serial ports while video is playing
                if (serialPortA.isOpened()) {
@@ -449,7 +437,7 @@ public class RFIDMicroscope extends Application implements Constants {
          });
 
          // Runs when a video is finished playing
-         video.setOnEndOfMedia(() -> {
+         videoPlayer.setOnEndOfMedia(() -> {
             try {
                // Open facts reader
                if (!serialPortA.isOpened()) {
@@ -466,6 +454,8 @@ public class RFIDMicroscope extends Application implements Constants {
             catch (SerialPortException e) {
                System.out.println(e);
             }
+            
+            videoPlayer.dispose();
          });
       });
    }
@@ -494,7 +484,7 @@ public class RFIDMicroscope extends Application implements Constants {
       return imageData.get(specimenId);
    }
 
-   private static MediaPlayer getVideoMedia(String specimenId) {
+    private static Media getVideoMedia(String specimenId) {
       return videoData.get(specimenId);
    }
 }
