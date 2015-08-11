@@ -264,20 +264,20 @@ public class RFIDMicroscope extends Application implements Constants {
       imageData.put(BEETLE_ID, beetleImage);
       imageData.put(FOSSIL_ID, fossilImage);
       imageData.put(SHARK_TOOTH_ID, sharkToothImage);
-//        imageData.put(Constants.CORAL_ID, coralImage);
+        imageData.put(CORAL_ID, coralImage);
       imageData.put(BUTTERFLY_ID, butterflyImage);
-//        imageData.put(Constants.TOMATO_SEEDS_ID, Constants.tomatoSeedsImage);
+        imageData.put(TOMATO_SEEDS_ID, Constants.tomatoSeedsImage);
       imageData.put(MAPLE_LEAF_ID, mapleLeafImage);
 
       // Set video data
 //      videoData.put(VOLCANIC_ROCK_ID, volcanicRockMedia);
       videoData.put(SNAKE_SKIN_ID, snakeSkinMedia);
-//      videoData.put(BIRD_FEATHER_ID, birdMedia);
+      videoData.put(BIRD_FEATHER_ID, birdMedia);
       videoData.put(BEETLE_ID, beetleMedia);
 //      videoData.put(FOSSIL_ID, fossilMedia);
-//      videoData.put(SHARK_TOOTH_ID, sharkMedia);
+      videoData.put(SHARK_TOOTH_ID, sharkMedia);
         videoData.put(CORAL_ID, coralMedia);
-//      videoData.put(BUTTERFLY_ID, butterflyMedia);
+      videoData.put(BUTTERFLY_ID, butterflyMedia);
         videoData.put(TOMATO_SEEDS_ID, tomatoMedia);
 //      videoData.put(MAPLE_LEAF_ID, mapleMedia);
    }
