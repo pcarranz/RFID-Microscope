@@ -10,12 +10,10 @@ package rfid.microscope;
 import javafx.geometry.Insets;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -61,7 +59,6 @@ public class RFIDMicroscope extends Application implements Constants {
    public static final Map<String, String> factData = new ConcurrentHashMap<>();
    public static final Map<String, String> specimenNameData = new ConcurrentHashMap<>();
    public static final Map<String, Image> imageData = new ConcurrentHashMap<>();
-//   public static final Map<String, MediaPlayer> videoData = new ConcurrentHashMap<>();
    public static final Map<String, Media> videoData = new ConcurrentHashMap<>();
 
    // Image Objects
@@ -72,7 +69,6 @@ public class RFIDMicroscope extends Application implements Constants {
    public static MediaView videoView = new MediaView();
 
    // Transition Objects
-   public static FadeTransition fadeVideo = new FadeTransition(Duration.millis(1000), videoView);
    public static FadeTransition fadeImage = new FadeTransition(Duration.millis(1000), microscopeImageView);
 
    @Override
@@ -107,7 +103,7 @@ public class RFIDMicroscope extends Application implements Constants {
 
       specimenName.setPadding(new Insets(15, 0, 0, 0)); // top, right, bottom, left
       specimenFacts.setWrapText(true);
-      specimenFacts.setPadding(new Insets(80));// top, right, bottom, left
+      specimenFacts.setPadding(new Insets(0, 80, 0, 80));// top, right, bottom, left
 
       readerNumber.setFill(Paint.valueOf("#FFF"));
       specimenName.setTextFill(Paint.valueOf("#FFF"));
@@ -135,6 +131,7 @@ public class RFIDMicroscope extends Application implements Constants {
       specimenFacts.setText("Place a specimen on 1 to begin!");
       Scene scene = new Scene(root, 600, 450);
 
+      scene.setCursor(Cursor.NONE);  // hide cursor
       primaryStage.setFullScreen(true);
       primaryStage.setTitle("RFID Virtual Microscope");
       primaryStage.setScene(scene);
@@ -355,16 +352,16 @@ public class RFIDMicroscope extends Application implements Constants {
          // Keep track of which reader on
          isMicroscopeOn = true;
 
-         
-
          // Remove the video block if there is one
          contentPane.getChildren().clear();
          contentPane.getChildren().add(microscopeImageView);
+         fadeImage.play();
 
          // Display specimen info and image
          readerNumber.setText(Constants.READER_2);
          specimenName.setText(getSpecimenName(tagId));
          microscopeImageView.setImage(getSpecimenImage(tagId));
+         
          
          // Close current open port
          try {
