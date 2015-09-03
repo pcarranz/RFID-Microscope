@@ -3,7 +3,7 @@
  * Created By: Patricia Carranza
  * CPE 461-462, Dr. John Oliver
  * Cal Poly, San Luis Obispo
- * San Luis Obispo Children's Museum
+ * The San Luis Obispo Children's Museum
  */
 package rfid.microscope;
 
@@ -261,22 +261,22 @@ public class RFIDMicroscope extends Application implements Constants {
       imageData.put(BEETLE_ID, beetleImage);
       imageData.put(FOSSIL_ID, fossilImage);
       imageData.put(SHARK_TOOTH_ID, sharkToothImage);
-        imageData.put(CORAL_ID, coralImage);
+      imageData.put(CORAL_ID, coralImage);
       imageData.put(BUTTERFLY_ID, butterflyImage);
-        imageData.put(TOMATO_SEEDS_ID, Constants.tomatoSeedsImage);
+      imageData.put(TOMATO_SEEDS_ID, Constants.tomatoSeedsImage);
       imageData.put(MAPLE_LEAF_ID, mapleLeafImage);
 
       // Set video data
-//      videoData.put(VOLCANIC_ROCK_ID, volcanicRockMedia);
+      videoData.put(VOLCANIC_ROCK_ID, volcanicRockMedia);
       videoData.put(SNAKE_SKIN_ID, snakeSkinMedia);
       videoData.put(BIRD_FEATHER_ID, birdMedia);
       videoData.put(BEETLE_ID, beetleMedia);
-//      videoData.put(FOSSIL_ID, fossilMedia);
+      videoData.put(FOSSIL_ID, fossilMedia);
       videoData.put(SHARK_TOOTH_ID, sharkMedia);
-        videoData.put(CORAL_ID, coralMedia);
+      videoData.put(CORAL_ID, coralMedia);
       videoData.put(BUTTERFLY_ID, butterflyMedia);
-        videoData.put(TOMATO_SEEDS_ID, tomatoMedia);
-//      videoData.put(MAPLE_LEAF_ID, mapleMedia);
+      videoData.put(TOMATO_SEEDS_ID, tomatoMedia);
+      videoData.put(MAPLE_LEAF_ID, mapleMedia);
    }
 
    /*
@@ -399,7 +399,7 @@ public class RFIDMicroscope extends Application implements Constants {
 
       // Run on UI thread, not Serial thread
       Platform.runLater(() -> {
-         // Keep track of which reader on
+         // Keep track of which reader is on
          isVideoOn = true;
 
          // Clear content then add only video view

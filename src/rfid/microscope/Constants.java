@@ -5,7 +5,7 @@ import javafx.scene.media.Media;
 
 /**
  *
- * @author PCarranza
+ * @author Patricia Carranza
  */
 public interface Constants
 {
@@ -221,25 +221,25 @@ public interface Constants
     public static final Image mapleLeafImage    = new Image(MAPLE_LEAF_IMG);
     
     // Specimen Video Objects
-//    public static final String VOLCANIC_ROCK_VID  = "file:///C:/Users/slocm-microscope/Documents/GitHub/RFID-Microscope/src/rfid/video-files/coral-HD.mp4";
+    public static final String VOLCANIC_ROCK_VID  = "file:///C:/Users/slocm-microscope/Documents/GitHub/RFID-Microscope/src/rfid/video-files/obsidian-video.mp4";
     public static final String SNAKE_SKIN_VID     = "file:///C:/Users/slocm-microscope/Documents/GitHub/RFID-Microscope/src/rfid/video-files/snake-skin-video.mp4";
     public static final String BIRD_FEATHER_VID   = "file:///C:/Users/slocm-microscope/Documents/GitHub/RFID-Microscope/src/rfid/video-files/bird-video.mp4";
     public static final String BEETLE_VID         = "file:///C:/Users/slocm-microscope/Documents/GitHub/RFID-Microscope/src/rfid/video-files/beetle-video.mp4";
-//    public static final String FOSSIL_VID         = "file:///C:/Users/slocm-microscope/Documents/GitHub/RFID-Microscope/src/rfid/video-files/coral-HD.mp4";
+    public static final String FOSSIL_VID         = "file:///C:/Users/slocm-microscope/Documents/GitHub/RFID-Microscope/src/rfid/video-files/ammonite-video.mp4";
     public static final String SHARK_TOOTH_VID    = "file:///C:/Users/slocm-microscope/Documents/GitHub/RFID-Microscope/src/rfid/video-files/shark-video.mp4";
     public static final String CORAL_VID          = "file:///C:/Users/slocm-microscope/Documents/GitHub/RFID-Microscope/src/rfid/video-files/coral-video.mp4";
-    public static final String BUTTERFLY_VID = "file:///C:/Users/slocm-microscope/Documents/GitHub/RFID-Microscope/src/rfid/video-files/butterfly-video.mp4";
-    public static final String TOMATO_SEEDS_VID = "file:///C:/Users/slocm-microscope/Documents/GitHub/RFID-Microscope/src/rfid/video-files/tomato-seed-video.mp4";
-//    public static final String MAPLE_LEAF_VID     = "file:///C:/Users/slocm-microscope/Documents/GitHub/RFID-Microscope/src/rfid/video-files/cotton-HD.mp4";
+   public static final String BUTTERFLY_VID       = "file:///C:/Users/slocm-microscope/Documents/GitHub/RFID-Microscope/src/rfid/video-files/butterfly-video.mp4";
+   public static final String TOMATO_SEEDS_VID    = "file:///C:/Users/slocm-microscope/Documents/GitHub/RFID-Microscope/src/rfid/video-files/tomato-seed-video.mp4";
+   public static final String MAPLE_LEAF_VID      = "file:///C:/Users/slocm-microscope/Documents/GitHub/RFID-Microscope/src/rfid/video-files/maple-video.mp4";
     
-//    public static final Media volcanicRockMedia = new Media(VOLCANIC_ROCK_VID);
+    public static final Media volcanicRockMedia = new Media(VOLCANIC_ROCK_VID);
     public static final Media snakeSkinMedia    = new Media(SNAKE_SKIN_VID);
     public static final Media birdMedia         = new Media(BIRD_FEATHER_VID);
     public static final Media beetleMedia       = new Media(BEETLE_VID);
-//    public static final Media fossilMedia       = new Media(FOSSIL_VID);
-    public static final Media sharkMedia         = new Media(SHARK_TOOTH_VID);
-    public static final Media coralMedia     = new Media(CORAL_VID);
-    public static final Media butterflyMedia     = new Media(BUTTERFLY_VID);
-    public static final Media tomatoMedia     = new Media(TOMATO_SEEDS_VID);
-//    public static final Media mapleMedia       = new Media(MAPLE_LEAF_VID);
+    public static final Media fossilMedia       = new Media(FOSSIL_VID);
+    public static final Media sharkMedia        = new Media(SHARK_TOOTH_VID);
+    public static final Media coralMedia        = new Media(CORAL_VID);
+    public static final Media butterflyMedia    = new Media(BUTTERFLY_VID);
+    public static final Media tomatoMedia       = new Media(TOMATO_SEEDS_VID);
+    public static final Media mapleMedia        = new Media(MAPLE_LEAF_VID);
 }
