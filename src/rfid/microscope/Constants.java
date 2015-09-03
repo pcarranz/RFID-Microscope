@@ -24,6 +24,16 @@ public interface Constants
     public static final String READER_2 = "2";
     public static final String READER_3 = "3";
     
+    // Arduino Commands 
+   public static final int ALL_LIGHTS_OFF    = 0;
+   public static final int FACTS_LED_ON      = 1;
+   public static final int MICROSCOPE_LED_ON = 2;
+   public static final int VIDEO_LED_ON      = 3;
+   public static final int ARROW_1_LED_ON    = 4;
+   public static final int ARROW_2_LED_ON    = 5;
+   public static final int ARROW_1_LED_OFF   = 6;
+   public static final int ARROW_2_LED_OFF   = 7;
+    
     // RFID Tag IDs
     public static final String VOLCANIC_ROCK_ID  = "\n160019EEB2\r";
     public static final String SNAKE_SKIN_ID     = "\n160019BB76\r";

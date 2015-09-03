@@ -32,6 +32,17 @@
 #define ARROW_PIN_2 24
 #define NUM_PIXELS 11  // Number of neopixels per strip
 
+// Commands sent from Java program
+#define ALL_LIGHTS_OFF 0
+#define FACTS_LED_ON 1
+#define MICROSCOPE_LED_ON 2
+#define VIDEO_LED_ON 3
+#define ARROW_1_LED_ON 4
+#define ARROW_2_LED_ON 5
+#define ARROW_1_LED_OFF 6
+#define ARROW_2_LED_OFF 7
+
+
 Adafruit_NeoPixel arrow1 = Adafruit_NeoPixel(NUM_PIXELS, ARROW_PIN_1, NEO_GRB + NEO_KHZ800);
 Adafruit_NeoPixel arrow2 = Adafruit_NeoPixel(60, ARROW_PIN_2, NEO_GRB + NEO_KHZ800);
 
@@ -62,30 +73,28 @@ void loop() {
   while (Serial.available() > 0) { 
     int val = Serial.read();
    
-    if (val == 1) {
+    if (val == FACTS_LED_ON) {
       lightRed();
     }
-    else if (val == 2) {
+    else if (val == MICROSCOPE_LED_ON) {
         lightBlue();
     }
-    else if (val == 3) {
+    else if (val == VIDEO_LED_ON) {
       lightGreen();
     }
-    else if (val == 4) {
-//      arrow1RainbowCycle(20);
+    else if (val == ARROW_1_LED_ON) {
         arrow1On();
     }
-    else if(val == 5) {
-//      arrow2RainbowCycle(20);
+    else if(val == ARROW_2_LED_ON) {
         arrow2On();
     }
-    else if(val == 6) {
+    else if(val == ARROW_1_LED_OFF) {
       arrow1Off();
     }
-    else if(val == 7) {
+    else if(val == ARROW_2_LED_OFF) {
       arrow2Off();
     }
-    else if (val == 0) {
+    else if (val == ALL_LIGHTS_OFF) {
       lightsOff();
     }
   }
