@@ -43,3 +43,6 @@ Temporary Items
 .apdisk
 /dist/
 /build/
+
+# MP4 Files
+*.mp4
