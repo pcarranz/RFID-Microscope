@@ -1,80 +1,60 @@
 package rfid.microscope;
 
-import java.awt.Toolkit;
 import java.util.Timer;
 import java.util.TimerTask;
 import jssc.SerialPortException;
+import static rfid.microscope.RFIDMicroscope.arduinoPort;
+import static rfid.microscope.RFIDMicroscope.serialPortB;
+import static rfid.microscope.RFIDMicroscope.serialPortC;
+import static rfid.microscope.RFIDMicroscope.isFactsOn;
+import static rfid.microscope.RFIDMicroscope.isMicroscopeOn;
 
 /**
  *
  * @author Patricia Carranza
  */
 public class RFIDTimer {
-   Toolkit toolkit;
+
    public static Timer timer;
 
+   // Runs after 5 seconds
    public RFIDTimer() {
-      toolkit = Toolkit.getDefaultToolkit();
-      timer = new Timer(true);  // make timer thread a daemon
-      timer.schedule(new RFIDTimerReminder(), 0, 500);
+      timer = new Timer(true);
+      timer.schedule(new RFIDTimerReminder(), 5 * 1000);
+      System.out.println("Timer scheduled");
    }
 
    class RFIDTimerReminder extends TimerTask {
 
-      @Override
       public void run() {
-         if (RFIDMicroscope.serialPortA.isOpened()) {
+         if (isFactsOn) {
+            isFactsOn = false;
+
             try {
-               RFIDMicroscope.serialPortA.closePort();
-
-               if (!RFIDMicroscope.serialPortB.isOpened()) {
-                  RFIDMicroscope.serialPortB.openPort();
-                  RFIDMicroscope.serialPortB.addEventListener(new COM_B_listener());
-               }
-
-               if (RFIDMicroscope.serialPortC.isOpened()) {
-                  RFIDMicroscope.serialPortC.closePort();
-               }
+               serialPortB.openPort();
+               serialPortB.addEventListener(new COM_B_listener());
+               System.out.println("Arrow 1 On: "
+                    + arduinoPort.writeInt(4));
             }
-            catch (SerialPortException e) {
-               System.out.println(e);
-            }
+            catch (SerialPortException ex) {
+               System.out.println(ex);
+            } 
          }
-         else if (RFIDMicroscope.serialPortB.isOpened()) {
+         else if (isMicroscopeOn) {
+            isMicroscopeOn = false;
+
             try {
-               RFIDMicroscope.serialPortB.closePort();
-
-               if (RFIDMicroscope.serialPortA.isOpened()) {
-                  RFIDMicroscope.serialPortA.closePort();
-               }
-
-               if (!RFIDMicroscope.serialPortC.isOpened()) {
-                  RFIDMicroscope.serialPortC.openPort();
-                  RFIDMicroscope.serialPortC.addEventListener(new COM_C_listener());
-               }
+               serialPortC.openPort();
+               serialPortC.addEventListener(new COM_C_listener());
+               System.out.println("Arrow 2 On: "
+                    + arduinoPort.writeInt(5));
             }
-            catch (SerialPortException e) {
-               System.out.println(e);
-            }
+            catch (SerialPortException ex) {
+               System.out.println(ex);
+            } 
          }
-         else if (RFIDMicroscope.serialPortC.isOpened()) {
-            try {
-               RFIDMicroscope.serialPortC.closePort();
 
-               if (RFIDMicroscope.serialPortB.isOpened()) {
-                  RFIDMicroscope.serialPortB.closePort();
-               }
-
-               if (!RFIDMicroscope.serialPortA.isOpened()) {
-                  RFIDMicroscope.serialPortA.openPort();
-                  RFIDMicroscope.serialPortA.addEventListener(new COM_A_listener());
-               }
-            }
-            catch (SerialPortException e) {
-               System.out.println(e);
-            }
-         }
-         //System.out.println("Task handled.");
+         timer.cancel();
       }
    }
 }
