@@ -11,7 +11,8 @@ public interface Constants
 {
    public static final int BAUDRATE_2400 = 2400;
    public static final String UNKNOWN = "Unknown Specimen";
-   public static final String BEGIN_PROMPT = "Select a specimen and place it on 1 to learn more!";
+   public static final String BEGIN_PROMPT = "Select a specimen and place it on 1 "
+           + "to learn more!";
    
     // COM Port Numbers
     public static final String COM_A = "COM4";
@@ -36,10 +37,10 @@ public interface Constants
     
     // RFID Tag IDs
     public static final String VOLCANIC_ROCK_ID  = "\n160019EEB2\r";
-    public static final String SNAKE_SKIN_ID     = "\n160019BB76\r";
+    public static final String SNAKE_SKIN_ID     = "\n160019EFB0\r";
     public static final String BIRD_FEATHER_ID   = "\n160019A7DC\r";
-    public static final String BEETLE_ID         = "\n160019A7F4\r";
-    public static final String FOSSIL_ID         = "\n160019B4E2\r";
+    public static final String BEETLE_ID         = "\n160019BB76\r";
+    public static final String FOSSIL_ID         = "\n160019DF0E\r";
     public static final String SHARK_TOOTH_ID    = "\n160019CFC9\r";
     public static final String CORAL_ID          = "\n16001A034D\r";
     public static final String BUTTERFLY_ID      = "\n70006D5A37\r";
@@ -52,7 +53,7 @@ public interface Constants
     public static final String BIRD_FEATHER   = "Quail Bird Feather";
     public static final String BEETLE         = "Chafer Beetle";
     public static final String FOSSIL         = "Fossil Ammonite";
-    public static final String SHARK_TOOTH    = "Bull Shark Tooth";
+    public static final String SHARK_TOOTH    = "Shark Teeth";
     public static final String CORAL          = "Coral";
     public static final String BUTTERFLY      = "Tiger Butterfly";
     public static final String TOMATO_SEEDS   = "Tomato Seeds";
@@ -65,9 +66,8 @@ public interface Constants
               "Classification: Intermediate Igneous rock\n"
             + "Texture: Smooth\n\n"
             + DID_YOU_KNOW
-            + "• Obsidian is an igneous rock that forms when molten rock cools "
-            + "very fast. The fast cooling does not let crystals form.\n"
-            + "• Obsidian can only form near active volcanoes.\n"
+            + "• Obsidian forms when molten rock cools very quickly, so it can "
+            + "only form near active volcanoes.\n"
             + "• When obsidian breaks, the pieces are very sharp which is why it"
             + " was used for tools in the Stone Age.\n"
             + "• Obsidian is considered a \"young\" rock. It is rarely older than"
@@ -80,13 +80,14 @@ public interface Constants
             + "Diet: Carnivore\n"
             + "Scientific Name: Enhydria chinesis (Chinese water snake)\n"
             + DID_YOU_KNOW
-            + "• Snakes shed their skin nearly 3 times a year in a process that"
-            + " usually lasts a few days. The process is called molting.\n"
-            + "• There are more than 3,000 species of snakes in the world.\n"
+            + "• Snakes shed their skin nearly three times a year in a process "
+            + "that usually lasts a few days and called molting.\n"
+            + "• There are more than 3,000 species of snakes.\n"
             + "• Snakes aren't slimy, their scales are smooth and dry.\n"
             + "• Antarctica is the only place in the world where snakes are not found.\n"
-            + "• Snakes don't smell with their noses like humans. They have a"
-            + " split tongue that they use to smell and taste.";
+            + "• Snakes use their nostrils to breathe, but they don’t use them to "
+            + "smell like humans do. Instead they have a split tongue that they "
+            + "use to smell and taste.";
     
     public static final String BIRD_FEATHER_FACTS   = 
               "Type: Bird\n"
@@ -98,10 +99,10 @@ public interface Constants
             + "• There are four basic wing shapes that apply to most flying birds:"
             + " Elliptical, long pointed, long narrow, and broad.\n"
             + "• Feathers are very strong and flexible to allow both lift and"
-            + " forward movement. Feathers can bend at almost right angles.\n"
-            + "• California quail usually live in hot, dry areas without much water.\n"
-            + " They mostly gain nutrients through moist plants.\n"
-            + "• Quails can lay 10 to 20 eggs at one time.";
+            + " forward movement.\n"
+            + "• California Quail usually live in hot, dry areas and gain nutrients "
+            + "through moist plants.\n"
+            + "• Quail can lay 10 to 20 eggs at one time.";
     
     public static final String BEETLE_FACTS         = 
               "Type: Insect\n"
@@ -112,27 +113,24 @@ public interface Constants
             + "• Most beetles only live for a year.\n"
             + "The metallic green coloring of the beetle is caused by the "
             + "reflection of light.\n"
-            + "• \"Fireflies\" and \"Lightning bugs\" are also beetles. They "
-            + "glow in the dark to communicate.\n"
+            + "• \"Fireflies\" and \"Lightning bugs\" are also beetles. They glow in "
+            + "the dark to communicate and flash patterns unique to their species.\n"
             + "• Beetles cannot see very well, so they communicate using sound or"
             + "vibrations (pheromones).\n"
-            + "• Beetles live everywhere – from hot deserts to the polar ice caps.\n"
-            + "• They feed on leaves, fruits, flowers and buds of a range of "
-            + "plants including roses.";
+            + "• Beetles live everywhere – from hot deserts to the polar ice caps.";
     
     public static final String FOSSIL_FACTS         = 
               "Type: Invertebrate\n"
             + "Diet: Carnivore\n"
             + "Scientific Name: Ammonitida\n\n"
             + DID_YOU_KNOW
-            + "• Ammonites lived in the sea 240-65 million years ago.\n"
-            + "• They became extinct along with the dinosaurs.\n"
-            + "• Scientists use the various shapes and sizes of ammonite "
-            + "shells that appeared and disappeared through the ages to date "
-            + "other fossils.\n"
+            + "• Ammonites lived in the sea 240-65 million years ago, but became "
+            + "extinct along with the dinosaurs.\n"
+            + "• Scientists use the various shapes and sizes of ammonite shells "
+            + "to date other fossils.\n"
             + "• Ammonites were predatory, squid-like creatures that lived inside "
             + "coil-shaped shells.\n"
-            + "• They ate small fish, crabs, lobsters, and shrimps.\n"
+            + "• They ate small fish, crabs, lobsters and shrimp.\n"
             + "• Ammonites constantly built new shells as they grew, but only"
             + " lived in the outer chamber.";
     
@@ -141,13 +139,12 @@ public interface Constants
             + DID_YOU_KNOW
             + "• Sharks have the most powerful jaws on the planet and are able"
             + " to move both their upper and lower jaws.\n"
-            + "• A shark bites with it's lower jaw first and then its upper jaw.\n"
             + "• A shark may grow and use over 20,000 teeth in its lifetime!\n"
             + "• Each type of shark has a different shaped tooth depending on their "
             + " diet. For example, carnivorous sharks have much pointier teeth.\n"
             + "• Sharks never run out of teeth.  If one is lost, another spins"
-            + " forward from the rows and rows of backup teeth.\n"
-            + "• Most sharks have about 5 rows of teeth at any time.";
+            + " forward from the many rows of backup teeth.\n"
+            + "• Most sharks have about five rows of teeth at any time.";
     
     public static final String CORAL_FACTS       = 
               "Type: Invertebrate\n"
@@ -169,13 +166,13 @@ public interface Constants
             + "Scientific Name: Rhopalocera\n\n"
             + DID_YOU_KNOW
             + "• Butterflies taste through their feet. They usually feed on the"
-            + " sweet water plants make.\n"
+            + " nectar plants make.\n"
             + "• Butterflies can live anywhere from 2 days to 11 months.\n"
             + "• Most butterflies live in tropical rainforests, but they can"
-            + " live in all climates and heights of the world.\n"
-            + "• Butterflies are colorful so that they can mate, absorb heat, and"
-            + " blend in with other flowers while feeding.\n"
-            + "• Scientists estimate that there are 28,000 species of butterflies"
+            + " live in all climates and altitudes of the world.\n"
+            + "• Butterflies are colorful so that they can attract mates, absorb "
+            + "heat and blend in with flowers while feeding.\n"
+            + "• Scientists estimate there are 28,000 species of butterflies"
             + " throughout the world.";
     
     public static final String TOMATO_SEEDS_FACTS =
@@ -186,24 +183,24 @@ public interface Constants
             + " grows from a flowering plant.\n"
             + "• They originated in the South American Andes near what is now"
             + " the country of Peru.\n"
-            + "• Tomatoes were first used as a food by the Aztec's in Southern"
+            + "• Tomatoes were first used as a food by the Aztecs in Southern"
             + " Mexico.\n"
             + "• Tomatoes have been grown in space before!\n"
             + "• It usually takes about 6-8 weeks to grow tomatoes after planting seeds.\n"
             + "• Most tomatoes are red, but there are also green, yellow, orange,"
-            + " pink, black, brown, white, and purple tomatoes.";
+            + " pink, black, brown, white and purple tomatoes.";
     
     public static final String MAPLE_LEAF_FACTS         = 
               "Type: Plant\n"
             + "Scientific Name: Acer (Maple Tree)\n"
             + DID_YOU_KNOW
-            + "• Leaves change color from green to different shades of yellow, "
+            + "• Maple leaves change color from green to different shades of yellow, "
             + "orange and red during the autumn.\n"
-            + "• Maple syrup is made from a Maple Tree's sap.\n"
+            + "• Maple syrup is made from a maple tree's sap.\n"
             + "• A maple leaf can be found in the center of Canada's flag.\n"
             + "• Leaves are divided in 3 to 9 sections. They are arranged opposite "
-            + "to each other on the branches.\n"
-            + "• Maple trees produce winged seeds which move like a helicopter"
+            + "each other on the branches.\n"
+            + "• Maple trees produce winged seeds which spin like a helicopter"
             + " when they fall from the trees.";
     
     // Specimen Microscopic Image File Paths

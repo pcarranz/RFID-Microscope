@@ -10,16 +10,18 @@ import jssc.SerialPortException;
  * @author Patricia Carranza
  */
 class COM_C_listener implements SerialPortEventListener {
+   // Read 12 bytes from serial port
+   private final int NUM_BYTES = 12;
 
    @Override
    public void serialEvent(SerialPortEvent event) {
       if (event.isRXCHAR()) {
          //If data is available
-         if (event.getEventValue() == 12) {
+         if (event.getEventValue() == NUM_BYTES) {
             //Check bytes count in the input buffer
             try {
                // Save current tag Id
-               RFIDMicroscope.tagId = RFIDMicroscope.serialPortC.readString(); //Read 12 bytes from serial port
+               RFIDMicroscope.tagId = RFIDMicroscope.serialPortC.readString();
                System.out.println("Tag ID: " + RFIDMicroscope.tagId);
 
                RFIDMicroscope.videoHandler();

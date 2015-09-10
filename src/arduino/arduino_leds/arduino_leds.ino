@@ -44,7 +44,7 @@
 
 
 Adafruit_NeoPixel arrow1 = Adafruit_NeoPixel(NUM_PIXELS, ARROW_PIN_1, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel arrow2 = Adafruit_NeoPixel(60, ARROW_PIN_2, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel arrow2 = Adafruit_NeoPixel(NUM_PIXELS, ARROW_PIN_2, NEO_GRB + NEO_KHZ800);
 
 void setup() {
   pinMode(F_RED_PIN, OUTPUT);
@@ -74,19 +74,19 @@ void loop() {
     int val = Serial.read();
    
     if (val == FACTS_LED_ON) {
-      lightRed();
+      factsIndicatorOn();
     }
     else if (val == MICROSCOPE_LED_ON) {
-        lightBlue();
+        microscopeIndicatorOn();
     }
     else if (val == VIDEO_LED_ON) {
-      lightGreen();
+      videoIndicatorOn();
     }
     else if (val == ARROW_1_LED_ON) {
-        arrow1On();
+      arrow1RainbowCycle(3);
     }
     else if(val == ARROW_2_LED_ON) {
-        arrow2On();
+       arrow2RainbowCycle(3);
     }
     else if(val == ARROW_1_LED_OFF) {
       arrow1Off();
@@ -100,20 +100,23 @@ void loop() {
   }
 }
 
-void lightRed() {
-  analogWrite(F_RED_PIN, 200);
+void factsIndicatorOn() {  
+  // Magenta
+  analogWrite(F_RED_PIN, 255);
   analogWrite(F_GREEN_PIN, 0);
-  analogWrite(F_BLUE_PIN, 0);
+  analogWrite(F_BLUE_PIN, 155);
 }
 
-void lightBlue() {
+void microscopeIndicatorOn() { 
+  // Cyan
   analogWrite(M_RED_PIN, 0);
-  analogWrite(M_GREEN_PIN, 0);
-  analogWrite(M_BLUE_PIN, 200);  
+  analogWrite(M_GREEN_PIN, 255);
+  analogWrite(M_BLUE_PIN, 255);  
 }
 
-void lightGreen() {
-   analogWrite(V_RED_PIN, 0);
+void videoIndicatorOn() { 
+  // Yellow
+   analogWrite(V_RED_PIN, 255);
    analogWrite(V_GREEN_PIN, 200);
    analogWrite(V_BLUE_PIN, 0);
 }
@@ -172,15 +175,6 @@ void arrow1Off() {
   arrow1.show();
 }
 
-void arrow1On() {
-  for(int i = 0; i <  arrow1.numPixels(); i++){
-    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-    arrow1.setPixelColor(i, arrow1.Color(0, 150, 0)); // Moderately bright green color.
-
-    arrow1.show(); // This sends the updated pixel color to the hardware.
-  }
-}
-
 /* Arrow 2 Rainbow Functions */
 void arrow2RainbowCycle(uint8_t wait) {
   uint16_t i, j;
@@ -191,15 +185,6 @@ void arrow2RainbowCycle(uint8_t wait) {
     }
     arrow2.show();
     delay(wait);
-  }
-}
-
-void arrow2On() {
-  for(int i = 0; i < arrow2.numPixels(); i++){
-    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-    arrow2.setPixelColor(i, arrow2.Color(0, 150, 0)); // Moderately bright green color.
-
-    arrow2.show(); // This sends the updated pixel color to the hardware.
   }
 }
 

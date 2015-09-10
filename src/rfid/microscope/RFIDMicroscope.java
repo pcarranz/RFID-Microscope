@@ -1,5 +1,5 @@
 /*
- * RFID Virtual Microscope
+ * RFID Microscope
  * Created By: Patricia Carranza
  * CPE 461-462, Dr. John Oliver
  * Cal Poly, San Luis Obispo
@@ -75,9 +75,9 @@ public class RFIDMicroscope extends Application implements Constants {
    public void start(Stage primaryStage) throws InterruptedException, SerialPortException {
       // Setup RFID reader ports and specimen data
       attachEventListeners();
-      initData();
       serialPortB.closePort();
       serialPortC.closePort();
+      initData();
       
       /* Draw UI */
       // RFID reader number circle
@@ -126,31 +126,19 @@ public class RFIDMicroscope extends Application implements Constants {
       BorderPane root = new BorderPane();
       root.setTop(specimenNameBox);
       root.setCenter(contentPane);
+      
+      // Set up arduino port for serial communication
+      setArduinoParams();
 
       // Show UI
       specimenFacts.setText("Place a specimen on 1 to begin!");
-      Scene scene = new Scene(root, 600, 450);
+      Scene scene = new Scene(root, 600, 450);   
 
       scene.setCursor(Cursor.NONE);  // hide cursor
       primaryStage.setFullScreen(true);
       primaryStage.setTitle("RFID Virtual Microscope");
       primaryStage.setScene(scene);
       primaryStage.show();
-      
-      // Set up arduino port
-      arduinoPort = new SerialPort(Constants.ARDUINO_PORT);
-      try {
-         arduinoPort.openPort();
-         arduinoPort.setParams(
-                 SerialPort.BAUDRATE_9600,
-                 SerialPort.DATABITS_8,
-                 SerialPort.STOPBITS_1,
-                 SerialPort.PARITY_NONE);
-         Thread.sleep(5000);  // Give Arduino time to reboot
-      }
-      catch (SerialPortException ex) {
-         System.out.println(ex);
-      }
       
       // Turn off all LEDs when application is closed
       primaryStage.setOnCloseRequest((WindowEvent event) -> {
@@ -169,6 +157,23 @@ public class RFIDMicroscope extends Application implements Constants {
     */
    public static void main(String[] args) {
       launch(args);
+   }
+   
+   private void setArduinoParams() throws InterruptedException {
+      // Set up arduino port for serial communication
+      arduinoPort = new SerialPort(Constants.ARDUINO_PORT);
+      try {
+         arduinoPort.openPort();
+         arduinoPort.setParams(
+                 SerialPort.BAUDRATE_9600,
+                 SerialPort.DATABITS_8,
+                 SerialPort.STOPBITS_1,
+                 SerialPort.PARITY_NONE);
+         Thread.sleep(5000);  // Give Arduino time to reboot
+      }
+      catch (SerialPortException ex) {
+         System.out.println(ex);
+      }
    }
 
    /*
@@ -263,7 +268,7 @@ public class RFIDMicroscope extends Application implements Constants {
       imageData.put(SHARK_TOOTH_ID, sharkToothImage);
       imageData.put(CORAL_ID, coralImage);
       imageData.put(BUTTERFLY_ID, butterflyImage);
-      imageData.put(TOMATO_SEEDS_ID, Constants.tomatoSeedsImage);
+      imageData.put(TOMATO_SEEDS_ID, tomatoSeedsImage);
       imageData.put(MAPLE_LEAF_ID, mapleLeafImage);
 
       // Set video data
@@ -295,9 +300,9 @@ public class RFIDMicroscope extends Application implements Constants {
          // Turn on indicator LED
          try {
             System.out.println("Lights Off: "
-                    + arduinoPort.writeInt(0));
-            System.out.println("Light Red (Facts): "
-                    + arduinoPort.writeInt(1));
+                    + arduinoPort.writeInt(ALL_LIGHTS_OFF));
+            System.out.println("Facts indicator on: "
+                    + arduinoPort.writeInt(FACTS_LED_ON));
          }
          catch (SerialPortException ex) {
             System.out.println(ex);
@@ -334,14 +339,14 @@ public class RFIDMicroscope extends Application implements Constants {
       // Turn on indicator LEDs
          try {
             System.out.println("Lights off: "
-                    + arduinoPort.writeInt(0));
+                    + arduinoPort.writeInt(ALL_LIGHTS_OFF));
             
-             System.out.println("Light Blue (Microscope): "
-                    + arduinoPort.writeInt(2));
+             System.out.println("Microscope indicator on: "
+                    + arduinoPort.writeInt(MICROSCOPE_LED_ON));
              
              // Turn off Arrow 1 LEDs
              System.out.println("Arrow 1 Off: "
-                    + arduinoPort.writeInt(6));
+                    + arduinoPort.writeInt(ARROW_1_LED_OFF));
          }
          catch (SerialPortException ex) {
             System.out.println(ex);
@@ -385,13 +390,13 @@ public class RFIDMicroscope extends Application implements Constants {
       // Turn on indicator LEDs
          try {
             System.out.println("All lights off: "
-                    + arduinoPort.writeInt(0));
-            System.out.println("Light green (Video): "
-                    + arduinoPort.writeInt(3));
+                    + arduinoPort.writeInt(ALL_LIGHTS_OFF));
+            System.out.println("Video indicator on: "
+                    + arduinoPort.writeInt(VIDEO_LED_ON));
             
             // Turn off Arrow 2 LEDs
              System.out.println("Arrow 2 Off: "
-                    + arduinoPort.writeInt(7));
+                    + arduinoPort.writeInt(ARROW_2_LED_OFF));
          }
          catch (SerialPortException ex) {
             System.out.println(ex);

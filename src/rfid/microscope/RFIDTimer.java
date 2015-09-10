@@ -13,7 +13,7 @@ import static rfid.microscope.RFIDMicroscope.isMicroscopeOn;
  *
  * @author Patricia Carranza
  */
-public class RFIDTimer {
+public class RFIDTimer implements Constants {
 
    public static Timer timer;
 
@@ -30,11 +30,12 @@ public class RFIDTimer {
          if (isFactsOn) {
             isFactsOn = false;
 
+            // Open Microscope port and turn on Arrow 1
             try {
                serialPortB.openPort();
                serialPortB.addEventListener(new COM_B_listener());
                System.out.println("Arrow 1 On: "
-                    + arduinoPort.writeInt(4));
+                    + arduinoPort.writeInt(ARROW_1_LED_ON));
             }
             catch (SerialPortException ex) {
                System.out.println(ex);
@@ -43,17 +44,19 @@ public class RFIDTimer {
          else if (isMicroscopeOn) {
             isMicroscopeOn = false;
 
+            // Turn on Video port and turn on Arrow 2
             try {
                serialPortC.openPort();
                serialPortC.addEventListener(new COM_C_listener());
                System.out.println("Arrow 2 On: "
-                    + arduinoPort.writeInt(5));
+                    + arduinoPort.writeInt(ARROW_2_LED_ON));
             }
             catch (SerialPortException ex) {
                System.out.println(ex);
             } 
          }
 
+         // Stop timer
          timer.cancel();
       }
    }
