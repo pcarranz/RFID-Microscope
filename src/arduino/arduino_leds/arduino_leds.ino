@@ -179,8 +179,8 @@ void arrow1Off() {
 void arrow2RainbowCycle(uint8_t wait) {
   uint16_t i, j;
 
-  for(j = 0; j < 256 * 5; j++) { // 5 cycles of all colors on wheel
-    for(i = 0; i < arrow2.numPixels(); i++) {
+  for(j = 0; j < 256; j++) {
+    for(i = 0; i< arrow2.numPixels(); i++) {
       arrow2.setPixelColor(i, arrow2Wheel(((i * 256 / arrow2.numPixels()) + j) & 255));
     }
     arrow2.show();
@@ -211,4 +211,3 @@ void arrow2Off() {
   }
   arrow2.show();
 }
-

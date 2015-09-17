@@ -96,10 +96,13 @@ public class RFIDMicroscope extends Application implements Constants {
       // Set styles
       specimenNameBox.setStyle("-fx-background-color: #3BC7C3;");
       contentPane.setStyle("-fx-background-color: #B2E77B;");
+      specimenName.setStyle("-fx-font-family: 'Montserrat', sans-serif;");
+      readerNumber.setStyle("-fx-font-family: 'Montserrat', sans-serif;");
+      specimenFacts.setStyle("-fx-font-family: 'Montserrat', sans-serif;");
 
       specimenFacts.setFont(Font.font(42.0));
-      readerNumber.setFont(Font.font(42.0));
-      specimenName.setFont(Font.font(42.0));
+      readerNumber.setFont(Font.font(46.0));
+      specimenName.setFont(Font.font(46.0));
 
       specimenName.setPadding(new Insets(15, 0, 0, 0)); // top, right, bottom, left
       specimenFacts.setWrapText(true);
@@ -131,9 +134,12 @@ public class RFIDMicroscope extends Application implements Constants {
       setArduinoParams();
 
       // Show UI
-      specimenFacts.setText("Place a specimen on 1 to begin!");
+      specimenFacts.setText(BEGIN_PROMPT);
       Scene scene = new Scene(root, 600, 450);   
 
+      // Custom Font
+      scene.getStylesheets().add("https://fonts.googleapis.com/css?family=Montserrat");
+      
       scene.setCursor(Cursor.NONE);  // hide cursor
       primaryStage.setFullScreen(true);
       primaryStage.setTitle("RFID Virtual Microscope");

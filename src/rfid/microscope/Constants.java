@@ -55,7 +55,7 @@ public interface Constants
     public static final String FOSSIL         = "Fossil Ammonite";
     public static final String SHARK_TOOTH    = "Shark Teeth";
     public static final String CORAL          = "Coral";
-    public static final String BUTTERFLY      = "Tiger Butterfly";
+    public static final String BUTTERFLY      = "Monarch Butterfly";
     public static final String TOMATO_SEEDS   = "Tomato Seeds";
     public static final String MAPLE_LEAF     = "Maple Leaf";
     
