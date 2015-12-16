@@ -22,7 +22,7 @@ class COM_C_listener implements SerialPortEventListener {
             try {
                // Save current tag Id
                RFIDMicroscope.tagId = RFIDMicroscope.serialPortC.readString();
-               System.out.println("Tag ID: " + RFIDMicroscope.tagId);
+               System.out.print("Tag ID: " + RFIDMicroscope.tagId);
 
                RFIDMicroscope.videoHandler();
             }

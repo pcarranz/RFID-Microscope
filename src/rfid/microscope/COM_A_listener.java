@@ -22,7 +22,7 @@ class COM_A_listener implements SerialPortEventListener {
             try {
                // Save current tag Id
                RFIDMicroscope.tagId = RFIDMicroscope.serialPortA.readString();
-               System.out.println("Tag ID: " + RFIDMicroscope.tagId);
+               System.out.print("Tag ID: " + RFIDMicroscope.tagId);
 
                RFIDMicroscope.factsHandler();
             }

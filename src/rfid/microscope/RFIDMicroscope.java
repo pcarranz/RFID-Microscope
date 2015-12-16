@@ -421,32 +421,62 @@ public class RFIDMicroscope extends Application implements Constants {
          readerNumber.setText(Constants.READER_3);
          specimenName.setText(getSpecimenName(tagId));
 
-         MediaPlayer videoPlayer = new MediaPlayer(getVideoMedia(tagId));
-         videoView.setMediaPlayer(videoPlayer);
-         videoPlayer.play();
+         Media videoMedia = getVideoMedia(tagId);
+         
+         if (videoMedia != null) {
+            MediaPlayer videoPlayer = new MediaPlayer(videoMedia);
+         
+            videoView.setMediaPlayer(videoPlayer);
+            videoPlayer.play();
 
-         // Runs when a video starts playing
-         videoPlayer.setOnPlaying(() -> {
+            // Runs when a video starts playing
+            videoPlayer.setOnPlaying(() -> {
+               try {
+                  // Close serial ports while video is playing
+                  if (serialPortA.isOpened()) {
+                     serialPortA.closePort();
+                  }
+                  if (serialPortB.isOpened()) {
+                     serialPortB.closePort();
+                  }
+                  if (serialPortC.isOpened()) {
+                     serialPortC.closePort();
+                  }
+               }
+               catch (SerialPortException e) {
+                  System.out.println(e);
+               }
+            });
+
+            // Runs when a video is finished playing
+            videoPlayer.setOnEndOfMedia(() -> {
+               try {
+                  // Open facts reader
+                  if (!serialPortA.isOpened()) {
+                     serialPortA.openPort();
+                     serialPortA.addEventListener(new COM_A_listener());
+                  }
+
+                  // Clear video view
+                  contentPane.getChildren().clear();
+                  contentPane.getChildren().add(specimenFacts);
+                  specimenFacts.setText(BEGIN_PROMPT);
+                  specimenName.setText("");
+               }
+               catch (SerialPortException e) {
+                  System.out.println(e);
+               }
+
+               videoPlayer.dispose();
+            });
+         }
+         else {
             try {
-               // Close serial ports while video is playing
-               if (serialPortA.isOpened()) {
-                  serialPortA.closePort();
-               }
-               if (serialPortB.isOpened()) {
-                  serialPortB.closePort();
-               }
+               // Close video player
                if (serialPortC.isOpened()) {
-                  serialPortC.closePort();
+                     serialPortC.closePort();
                }
-            }
-            catch (SerialPortException e) {
-               System.out.println(e);
-            }
-         });
-
-         // Runs when a video is finished playing
-         videoPlayer.setOnEndOfMedia(() -> {
-            try {
+               
                // Open facts reader
                if (!serialPortA.isOpened()) {
                   serialPortA.openPort();
@@ -462,9 +492,7 @@ public class RFIDMicroscope extends Application implements Constants {
             catch (SerialPortException e) {
                System.out.println(e);
             }
-            
-            videoPlayer.dispose();
-         });
+         }
       });
    }
 
@@ -493,6 +521,6 @@ public class RFIDMicroscope extends Application implements Constants {
    }
 
     private static Media getVideoMedia(String specimenId) {
-      return videoData.get(specimenId);
+       return videoData.get(specimenId);
    }
 }
